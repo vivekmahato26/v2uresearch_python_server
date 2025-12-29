@@ -12,7 +12,7 @@
         href="http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic%7CPT+Gudea:400,700,400italic%7CPT+Oswald:400,700,300"
         rel="stylesheet" id="googlefont">
 	<!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}"> -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css'">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
 	<link rel="stylesheet" href="{% static 'css/prettyPhoto.css' %}">
 	<link rel="stylesheet" href="{% static 'css/colpick.css' %}">
@@ -28,7 +28,7 @@
     <link rel="apple-touch-icon" sizes="72x72"
         href="../../../../www.portotheme.com/html/venedor/pink/images/icons/apple-icon-72x72.html"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.11.1.min.js' %}"><\/script>');</script><!--[if lt IE 9]><script src="{% static 'js/html5shiv.js' %}"></script>
+    <script>window.jQuery || document.write('<script src="{% static "js/jquery-1.11.1.min.js" %}"><\/script>');</script><!--[if lt IE 9]><script src="{% static 'js/html5shiv.js' %}"></script>
 	    <script src="{% static 'js/respond.min.js' %}"></script><![endif]-->
     <style id="custom-style"></style>
 </head>
@@ -128,7 +128,7 @@
         <div class="tradingview-widget-container">
             <div class="tradingview-widget-container__widget"></div>
             <!-- <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div> -->
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js"
+            <script type="application/json" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js"
                 async>
                     {
                         "symbols": [
@@ -207,7 +207,7 @@
                             <div class="item item-hover mb-0">
                                 <div class="item-image-wrapper">
                                     <a href="https://www.portotheme.com/html/venedor/pink/elements/product.html">
-                                        <img src={% static 'images/AU Little champ card.jpg" alt="item1"
+                                        <img src="{% static 'images/AU Little champ card.jpg' %}" alt="item1"
                                             class="d-block m-auto">
                                     </a>
                                 </div><!-- End .item-image-wrapper -->
@@ -233,7 +233,7 @@
                                     <div class="item item-hover">
                                         <div class="item-image-wrapper product">
                                             <a href="product.html">
-                                                <img src="images/GDI integrated.jpg' %}" alt="item1" class="item-image">
+                                                <img src="{% static 'images/GDI integrated.jpg' %}" alt="item1" class="item-image">
                                                 <div class="overlay">
                                                     <span class="bg-white-transparent p-1">TEAM V2U | <i class="fa fa-calendar" aria-hidden="true"></i> 13 MAR, 2023</span>
                                                     <p class="mb-0 mt-3">Lorem Ipsum is simply dummy text of the</p>
@@ -244,7 +244,7 @@
                                     <div class="item item-hover">
                                         <div class="item-image-wrapper product">
                                             <a href="product.html">
-                                                <img src={% static 'images/ADF Group Inc.jpg' %}" alt="item2" class="item-image">
+                                                <img src="{% static 'images/ADF Group Inc.jpg' %}" alt="item2" class="item-image">
                                                 <div class="overlay">
                                                     <span class="bg-white-transparent p-1">TEAM V2U | <i class="fa fa-calendar" aria-hidden="true"></i> 13 MAR, 2023</span>
                                                     <p class="mb-0 mt-3">Lorem Ipsum is simply dummy text of the</p>
@@ -255,7 +255,7 @@
                                     <div class="item item-hover">
                                         <div class="item-image-wrapper product">
                                             <a href="product.html">
-                                                <img src={% static 'images/Caribbean utilities.jpg' %}" alt="item3" class="item-image">
+                                                <img src="{% static 'images/Caribbean utilities.jpg' %}" alt="item3" class="item-image">
                                                 <div class="overlay">
                                                     <span class="bg-white-transparent p-1">TEAM V2U | <i class="fa fa-calendar" aria-hidden="true"></i> 13 MAR, 2023</span>
                                                     <p class="mb-0 mt-3">Lorem Ipsum is simply dummy text of the</p>
@@ -266,7 +266,7 @@
                                     <div class="item item-hover">
                                         <div class="item-image-wrapper product">
                                             <a href="product.html">
-                                                <img src={% static 'images/Costco wholesale.jpg' %}" alt="item4" class="item-image">
+                                                <img src="{% static 'images/Costco wholesale.jpg' %}" alt="item4" class="item-image">
                                                 <div class="overlay">
                                                     <span class="bg-white-transparent p-1">TEAM V2U | <i class="fa fa-calendar" aria-hidden="true"></i> 13 MAR, 2023</span>
                                                     <p class="mb-0 mt-3">Lorem Ipsum is simply dummy text of the</p>
@@ -277,7 +277,7 @@
                                     <div class="item item-hover">
                                         <div class="item-image-wrapper product">
                                             <a href="product.html">
-                                                <img src={% static 'images/GDI integrated.jpg' %}" alt="item1" class="item-image">
+                                                <img src="{% static 'images/GDI integrated.jpg' %}" alt="item1" class="item-image">
                                                 <div class="overlay">
                                                     <span class="bg-white-transparent p-1">TEAM V2U | <i class="fa fa-calendar" aria-hidden="true"></i> 13 MAR, 2023</span>
                                                     <p class="mb-0 mt-3">Lorem Ipsum is simply dummy text of the</p>
@@ -288,7 +288,7 @@
                                     <div class="item item-hover">
                                         <div class="item-image-wrapper product">
                                             <a href="product.html">
-                                                rimg src={% static 'images/GDI integrated.jpg' %}" alt="item1" class="item-image">
+                                                <img src="{% static 'images/GDI integrated.jpg' %}" alt="item1" class="item-image">
                                                 <div class="overlay">
                                                     <span class="bg-white-transparent p-1">TEAM V2U | <i class="fa fa-calendar" aria-hidden="true"></i> 13 MAR, 2023</span>
                                                     <p class="mb-0 mt-3">Lorem Ipsum is simply dummy text of the</p>
@@ -325,7 +325,7 @@
                                     <div class="hot-items-slider owl-carousel">
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -335,7 +335,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -345,7 +345,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -355,7 +355,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -365,7 +365,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -375,7 +375,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -408,7 +408,7 @@
                                     <div class="hot-items-slider owl-carousel">
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -418,7 +418,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -428,7 +428,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -438,7 +438,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -448,7 +448,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -458,7 +458,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -491,7 +491,7 @@
                                     <div class="hot-items-slider owl-carousel">
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -501,7 +501,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -511,7 +511,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -521,7 +521,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -531,7 +531,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -541,7 +541,7 @@
                                         </div>
                                         <div class="item item-hover">
                                             <div class="card m-auto" >
-                                                <img src={% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
+                                                <img src="{% static 'images/Dividend Stocks.jpg' %}" class="card-img-top" alt="...">
                                                 <div class="card-body">
                                                   <h5 class="card-title">Card title</h5>
                                                   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
