@@ -35,29 +35,7 @@
             <div class="col-auto ms-auto d-none d-lg-block">
                 <nav id="main-nav">
                     <ul class="menu">
-                        <!-- Region Selector -->
-                        {% if regions %}
-                        <li class="dropdown d-none d-md-block">
-                            <a href="#" class="dropdown-toggle d-flex align-items-center gap-1" data-bs-toggle="dropdown">
-                                <i class="fas fa-globe"></i> 
-                                {% if region %}{{ region.country_code }}{% else %}Region{% endif %}
-                            </a>
-                            <ul class="dropdown-menu shadow border-0" style="min-width: 120px;">
-                                <li class="px-3 py-1 text-muted small fw-bold">Select Region</li>
-                                {% for r in regions %}
-                                <li>
-                                    <a class="dropdown-item py-1 d-flex justify-content-between align-items-center {% if region.country_code == r.country_code %}active{% endif %}" 
-                                       href="{% url 'switch' to=r.country_code %}">
-                                       {{ r.country_code }}
-                                       {% if region.country_code == r.country_code %}
-                                       <i class="fas fa-check text-success small"></i>
-                                       {% endif %}
-                                    </a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                        {% endif %}
+
 
                         <li><a href="{% url 'research' %}">Research</a></li>
                         <li><a href="{% url 'product-list' %}">Products</a></li> 
@@ -120,6 +98,29 @@
                                 <a href="{% url 'product-list' %}" class="btn btn-primary text-white" style="padding: 8px 16px;">Get Started</a>
                             </li>
                         {% endif %}
+                        <!-- Region Selector -->
+                        {% if regions %}
+                        <li class="dropdown d-none d-md-block">
+                            <a href="#" class="dropdown-toggle d-flex align-items-center gap-1" data-bs-toggle="dropdown">
+                                <i class="fas fa-globe"></i> 
+                                {% if region %}{{ region.country_code }}{% else %}Region{% endif %}
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="min-width: 120px;">
+                                <li class="px-3 py-1 text-muted small fw-bold">Select Region</li>
+                                {% for r in regions %}
+                                <li>
+                                    <a class="dropdown-item py-1 d-flex justify-content-between align-items-center {% if region.country_code == r.country_code %}active{% endif %}" 
+                                       href="{% url 'switch' to=r.country_code %}">
+                                       {{ r.country_code }}
+                                       {% if region.country_code == r.country_code %}
+                                       <i class="fas fa-check text-success small"></i>
+                                       {% endif %}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endif %}
                     </ul>
                 </nav>
             </div>
@@ -143,27 +144,7 @@
 
         <!-- Mobile Menu Items -->
         <ul class="mobile-menu">
-            {% if regions %}
-            <li class="has-submenu">
-                <a href="#" class="submenu-toggle">
-                    <i class="fas fa-globe"></i> 
-                    {% if region %}{{ region.country_code }}{% else %}Region{% endif %}
-                    <i class="fas fa-angle-down float-end"></i>
-                </a>
-                <ul class="submenu">
-                    {% for r in regions %}
-                    <li>
-                        <a href="{% url 'switch' to=r.country_code %}" class="d-flex justify-content-between align-items-center">
-                            {{ r.country_code }}
-                            {% if region.country_code == r.country_code %}
-                            <i class="fas fa-check text-success small"></i>
-                            {% endif %}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </li>
-            {% endif %}
+
             
             <li><a href="{% url 'research' %}"><i class="fas fa-chart-line me-2"></i>Research</a></li>
             <li><a href="{% url 'product-list' %}"><i class="fas fa-box me-2"></i>Products</a></li>
@@ -211,6 +192,27 @@
             <li class="mobile-divider"></li>
             <li><a href="{% url 'account_login' %}"><i class="fas fa-sign-in-alt me-2"></i>Log In</a></li>
             <li><a href="{% url 'product-list' %}" class="btn btn-primary text-white w-100 mt-2">Get Started</a></li>
+            {% endif %}
+            {% if regions %}
+            <li class="has-submenu">
+                <a href="#" class="submenu-toggle">
+                    <i class="fas fa-globe"></i> 
+                    {% if region %}{{ region.country_code }}{% else %}Region{% endif %}
+                    <i class="fas fa-angle-down float-end"></i>
+                </a>
+                <ul class="submenu">
+                    {% for r in regions %}
+                    <li>
+                        <a href="{% url 'switch' to=r.country_code %}" class="d-flex justify-content-between align-items-center">
+                            {{ r.country_code }}
+                            {% if region.country_code == r.country_code %}
+                            <i class="fas fa-check text-success small"></i>
+                            {% endif %}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
             {% endif %}
         </ul>
     </div>

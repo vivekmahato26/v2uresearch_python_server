@@ -20,7 +20,11 @@
                         <div class="carousel-caption d-none d-md-block text-start" style="bottom: 40px; left: 40px; max-width: 600px;">
                             <h2 class="mb-2 fw-bold theme-caption-title">{{ report.title }}</h2>
                             <p class="mb-0 theme-caption-text">{{ report.short_description|truncatewords:20 }}</p>
+                            {% if report|has_access:request.user %}
                             <a href="{{ report.get_absolute_url }}" class="btn btn-primary mt-3">Read Report</a>
+                            {% else %}
+                            <a href="{{ report.get_absolute_url }}" class="btn btn-primary mt-3"><i class="fas fa-lock me-2"></i>Subscribe to Access</a>
+                            {% endif %}
                         </div>
                     </div>
                     {% endfor %}
@@ -79,7 +83,11 @@
                     <div class="groww-card-body">
                         <h5 class="groww-card-title">{{ report.title }}</h5>
                         <p class="groww-card-text">{{ report.short_description|truncatewords:15 }}</p>
+                        {% if report|has_access:request.user %}
                         <button class="groww-card-btn">View Report</button>
+                        {% else %}
+                        <button class="groww-card-btn"><i class="fas fa-lock me-1"></i>Subscribe to Access</button>
+                        {% endif %}
                     </div>
                 </div>
             </a>

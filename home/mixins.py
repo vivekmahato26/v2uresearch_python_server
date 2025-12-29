@@ -35,6 +35,8 @@ class EssentialsMixin:
             
         if region_str:
             region_str = str.upper(region_str)
+            
+        print(f"DEBUG: EssentialsMixin resolved region_str: {region_str}")
 
         # 2. Fetch Region Object
         region = None

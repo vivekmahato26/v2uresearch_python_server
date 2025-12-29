@@ -28,15 +28,29 @@ def getregioncookie(request):
     region  = request.COOKIES['region']  
     return HttpResponse("region @: "+  region);  
 
+from django.conf import settings
+
 def switchCountry(request, to):
-    response = redirect('home')
-    response.set_cookie('region', to, max_age=60*60*24*365)
-    if to == 'AUS':
-        return redirect('https://v2uresearch.com.au')
-    # elif to == 'IND':
-        # redirect('https://v2uresearch.in')
+    response = None
+    
+    # Production redirection logic
+    if not settings.DEBUG:
+        if to == 'AUS':
+            response = redirect('https://v2uresearch.com.au')
+        # elif to == 'IND':
+            # response = redirect('https://v2uresearch.in')
+        else:
+            response = redirect('https://v2uresearch.com')
     else:
-        return redirect('https://v2uresearch.com')
+        # LOCAL DEVELOPMENT: Redirect to home
+        # This prevents TemplateDoesNotExist error from missing region.html
+        response = redirect('/')
+
+    # Ensure cookie is set on the response object
+    if response:
+        response.set_cookie('region', to, max_age=60*60*24*365)
+    
+    return response
 
 class SwitchView(EssentialsMixin, TemplateView):
     template_name = 'home/switch_countries.html'
@@ -128,5 +142,4 @@ class RegionView(EssentialsMixin, TemplateView):
             except:
                 context['requested_region'] = None
                 context['obj_error'] = True
-        return context
     

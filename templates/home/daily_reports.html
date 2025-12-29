@@ -1,5 +1,6 @@
 {% extends "common/base.html" %}
 {% load static %}
+{% load report_tags %}
 
 {% block content %}
 <div class="container mt-4 mb-5">
@@ -62,7 +63,11 @@
                             <div class="mt-auto">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="badge bg-light text-dark border fw-normal">{{ report.segment.name|default:"General" }}</span>
-                                    <span class="text-success small fw-bold">Read More <i class="fas fa-arrow-right ms-1"></i></span>
+                                    {% if report|has_access:request.user %}
+                                    <span class="text-success small fw-bold">View Report <i class="fas fa-arrow-right ms-1"></i></span>
+                                    {% else %}
+                                    <span class="text-primary small fw-bold"><i class="fas fa-lock me-1"></i>Subscribe</span>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
