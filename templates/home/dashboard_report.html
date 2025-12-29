@@ -1,0 +1,285 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="bg-surface py-4">
+    <div class="container">
+        <!-- Breadcrumbs -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Reports</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="container py-5">
+    <!-- Welcome Header -->
+    <div class="mb-4">
+        <h1 class="display-5 fw-bold mb-2">Welcome back, {{ request.user.username|title }}!</h1>
+        <p class="text-muted">Access your investment research reports and insights</p>
+    </div>
+
+
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card border border-light shadow-sm p-4 h-100 bg-card hover-lift" style="border-radius: 12px;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center text-primary" 
+                         style="width: 56px; height: 56px; background: var(--primary-green-light); font-size: 24px;">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-0 text-main">{{ total_reports_count }}</h3>
+                        <p class="text-muted mb-0 small fw-bold">Total Reports</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border border-light shadow-sm p-4 h-100 bg-card hover-lift" style="border-radius: 12px;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center text-info" 
+                         style="width: 56px; height: 56px; background: rgba(83, 103, 255, 0.1); font-size: 24px;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-0 text-main">{{ recent_reports_count }}</h3>
+                        <p class="text-muted mb-0 small fw-bold">Recent Reports</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border border-light shadow-sm p-4 h-100 bg-card hover-lift" style="border-radius: 12px;">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center text-success" 
+                         style="width: 56px; height: 56px; background: rgba(25, 135, 84, 0.1); font-size: 24px;">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold mb-0 text-main">{{ accessible_products_count }}</h3>
+                        <p class="text-muted mb-0 small fw-bold">Active Products</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="card border-0 shadow-sm bg-card p-4 mb-4">
+        <form method="get" action="{% url 'dashboard-report' %}" id="filterForm">
+            <div class="row g-3 align-items-end">
+                <!-- Search -->
+                <div class="col-md-3">
+                    <label for="searchInput" class="form-label fw-semibold">Search</label>
+                    <input type="text" class="form-control" id="searchInput" name="search" 
+                           placeholder="Search reports..." value="{{ search_query }}">
+                </div>
+
+                <!-- Product Filter -->
+                <div class="col-md-2">
+                    <label for="productFilter" class="form-label fw-semibold">Product</label>
+                    <select class="form-select" id="productFilter" name="product">
+                        <option value="">All Products</option>
+                        {% for product in accessible_products %}
+                        <option value="{{ product.id }}" {% if selected_product == product.id|stringformat:"s" %}selected{% endif %}>
+                            {{ product.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Sector Filter -->
+                <div class="col-md-2">
+                    <label for="sectorFilter" class="form-label fw-semibold">Sector</label>
+                    <select class="form-select" id="sectorFilter" name="sector">
+                        <option value="">All Sectors</option>
+                        {% for sector in all_sectors %}
+                        <option value="{{ sector.id }}" {% if selected_sector == sector.id|stringformat:"s" %}selected{% endif %}>
+                            {{ sector.sector_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Date Range Filter -->
+                <div class="col-md-2">
+                    <label for="dateFilter" class="form-label fw-semibold">Date Range</label>
+                    <select class="form-select" id="dateFilter" name="date_range">
+                        <option value="">All Time</option>
+                        <option value="7" {% if selected_date_range == "7" %}selected{% endif %}>Last 7 days</option>
+                        <option value="30" {% if selected_date_range == "30" %}selected{% endif %}>Last 30 days</option>
+                        <option value="90" {% if selected_date_range == "90" %}selected{% endif %}>Last 90 days</option>
+                    </select>
+                </div>
+
+                <!-- Sort -->
+                <div class="col-md-2">
+                    <label for="sortFilter" class="form-label fw-semibold">Sort By</label>
+                    <select class="form-select" id="sortFilter" name="sort">
+                        <option value="newest" {% if selected_sort == "newest" %}selected{% endif %}>Newest First</option>
+                        <option value="oldest" {% if selected_sort == "oldest" %}selected{% endif %}>Oldest First</option>
+                        <option value="title_asc" {% if selected_sort == "title_asc" %}selected{% endif %}>Title A-Z</option>
+                        <option value="title_desc" {% if selected_sort == "title_desc" %}selected{% endif %}>Title Z-A</option>
+                    </select>
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            {% if has_filters %}
+            <div class="row mt-3">
+                <div class="col-12">
+                    <a href="{% url 'dashboard-report' %}" class="btn btn-outline-secondary btn-sm">
+                        <i class="fas fa-times me-1"></i> Clear Filters
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </form>
+    </div>
+
+    <!-- Results Count -->
+    {% if page_obj %}
+    <div class="mb-3">
+        <p class="text-muted">
+            Showing {{ page_obj.start_index }}-{{ page_obj.end_index }} of {{ page_obj.paginator.count }} reports
+        </p>
+    </div>
+    {% endif %}
+
+    <!-- Reports Grid -->
+    {% if reports %}
+    <div class="row g-4 mb-4">
+        {% for report in reports %}
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card h-100 groww-card">
+                {% if report.feature_image_url %}
+                <img src="{{ report.feature_image_url.url }}" alt="{{ report.title }}" class="groww-card-img">
+                {% else %}
+                <div class="groww-card-img"></div>
+                {% endif %}
+
+                <div class="groww-card-body">
+                    <!-- Product Badge -->
+                    {% if report.product.first %}
+                    <span class="badge bg-primary-green-light text-primary-green mb-2" style="width: fit-content; font-size: 10px;">{{ report.product.first.name|upper }}</span>
+                    {% endif %}
+
+                    <!-- Title -->
+                    <h3 class="groww-card-title">{{ report.title }}</h3>
+
+                    <!-- Date & Meta -->
+                    <div class="text-muted small mb-3">
+                        <i class="far fa-calendar me-1"></i>
+                        {{ report.published_date|date:"M d, Y" }}
+                    </div>
+
+                    <!-- Description -->
+                    {% if report.short_description %}
+                    <p class="groww-card-text small">{{ report.short_description }}</p>
+                    {% endif %}
+
+                    <!-- Sector Tags (Small) -->
+                    {% if report.sector.all %}
+                    <div class="d-flex flex-wrap gap-1 mb-3">
+                        {% for sector in report.sector.all|slice:":2" %}
+                        <span class="badge bg-surface text-muted border border-light fw-normal p-1 px-2" style="font-size: 9px;">{{ sector.sector_name }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- View Button -->
+                    <div class="mt-auto">
+                        <a href="{{ report.get_absolute_url }}" class="groww-card-btn text-decoration-none d-flex align-items-center justify-content-center gap-2">
+                            View Report <i class="fas fa-arrow-right small"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <nav aria-label="Reports pagination">
+        <ul class="pagination custom-pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_product %}&product={{ selected_product }}{% endif %}{% if selected_sector %}&sector={{ selected_sector }}{% endif %}{% if selected_date_range %}&date_range={{ selected_date_range }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            </li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_product %}&product={{ selected_product }}{% endif %}{% if selected_sector %}&sector={{ selected_sector }}{% endif %}{% if selected_date_range %}&date_range={{ selected_date_range }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                        {{ num }}
+                    </a>
+                </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}{% if selected_product %}&product={{ selected_product }}{% endif %}{% if selected_sector %}&sector={{ selected_sector }}{% endif %}{% if selected_date_range %}&date_range={{ selected_date_range }}{% endif %}{% if selected_sort %}&sort={{ selected_sort }}{% endif %}">
+                    <i class="fas fa-chevron-right"></i>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+
+    {% else %}
+    <!-- Empty State -->
+    <div class="card border-0 shadow-sm bg-card p-5 text-center">
+        <div class="mb-4 opacity-25">
+            <i class="fas fa-folder-open fa-4x"></i>
+        </div>
+        <h2 class="empty-state-title">No Reports Found</h2>
+        <p class="empty-state-text">
+            {% if has_filters %}
+            No reports match your current filters. Try adjusting your search criteria.
+            {% else %}
+            You don't have access to any reports yet. Please contact support to get started.
+            {% endif %}
+        </p>
+        {% if has_filters %}
+        <a href="{% url 'dashboard-report' %}" class="btn btn-primary">
+            <i class="fas fa-times me-2"></i> Clear All Filters
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<script>
+// Auto-submit form on filter change for better UX
+document.addEventListener('DOMContentLoaded', function() {
+    const filterForm = document.getElementById('filterForm');
+    const selects = filterForm.querySelectorAll('select');
+    
+    selects.forEach(select => {
+        select.addEventListener('change', function() {
+            filterForm.submit();
+        });
+    });
+});
+</script>
+
+{% endblock %}

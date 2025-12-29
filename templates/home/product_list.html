@@ -1,0 +1,129 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Products</li>
+        </ol>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold mb-3">Our Research Products</h1>
+        <p class="text-muted lead">Choose the perfect subscription plan for your investment needs</p>
+    </div>
+
+    <!-- Products Grid -->
+    {% if products %}
+    <div class="row g-4 justify-content-center">
+        {% for product in products %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 border-0 shadow-sm hover-lift {% if product.is_platinum %}border-warning border-3{% endif %}">
+                {% if product.is_platinum %}
+                <div class="card-header bg-warning text-dark text-center fw-bold py-3">
+                    <i class="fas fa-crown me-2"></i>PREMIUM PLAN
+                </div>
+                {% endif %}
+                
+                <div class="card-body p-4 d-flex flex-column">
+                    <!-- Product Name -->
+                    <h4 class="card-title fw-bold mb-3 text-center">
+                        {{ product.name }}
+                    </h4>
+
+                    <!-- Pricing -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold mb-0 text-primary">
+                            {{ region.currency }} {{ product.cost }}
+                        </h2>
+                        <small class="text-muted">per annum</small>
+                    </div>
+
+                    <!-- Features List -->
+                    <ul class="list-unstyled mb-4 flex-grow-1">
+                        {% if product.spec_1 %}
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="text-muted">{{ product.spec_1 }}</span>
+                        </li>
+                        {% endif %}
+                        {% if product.spec_2 %}
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="text-muted">{{ product.spec_2 }}</span>
+                        </li>
+                        {% endif %}
+                        {% if product.spec_3 %}
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="text-muted">{{ product.spec_3 }}</span>
+                        </li>
+                        {% endif %}
+                        {% if product.spec_4 %}
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="text-muted">{{ product.spec_4 }}</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    <!-- CTA Buttons -->
+                    <div class="mt-auto">
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-primary w-100 mb-2 fw-bold">
+                            View Details
+                        </a>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-outline-custom w-100 fw-bold">
+                            Subscribe Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <!-- Empty State -->
+    <div class="text-center py-5">
+        <div class="mb-4">
+            <i class="fas fa-box-open fa-4x text-muted opacity-50"></i>
+        </div>
+        <h4 class="fw-bold mb-3">No Products Available</h4>
+        <p class="text-muted mb-4">Please check back later for subscription options.</p>
+        <a href="/" class="btn btn-primary">
+            <i class="fas fa-home me-2"></i>Return to Home
+        </a>
+    </div>
+    {% endif %}
+
+    <!-- Additional Info Section -->
+    <div class="row mt-5 pt-5 border-top">
+        <div class="col-md-4 text-center mb-4">
+            <div class="mb-3">
+                <i class="fas fa-chart-line fa-3x" style="color: var(--primary-green);"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Expert Analysis</h5>
+            <p class="text-muted small">Professional market insights and research reports</p>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="mb-3">
+                <i class="fas fa-clock fa-3x" style="color: var(--primary-green);"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Timely Updates</h5>
+            <p class="text-muted small">Regular reports delivered to your inbox</p>
+        </div>
+        <div class="col-md-4 text-center mb-4">
+            <div class="mb-3">
+                <i class="fas fa-headset fa-3x" style="color: var(--primary-green);"></i>
+            </div>
+            <h5 class="fw-bold mb-2">Dedicated Support</h5>
+            <p class="text-muted small">Expert assistance whenever you need it</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

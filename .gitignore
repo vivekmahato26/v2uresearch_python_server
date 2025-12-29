@@ -1,0 +1,9 @@
+# Ignore environment variables (sensitive data)
+.env
+
+# Ignore specific Django/App settings file
+V2UResearchApp/settings.py
+
+# Optional but recommended: Ignore compiled Python files
+__pycache__/
+*.py[cod]

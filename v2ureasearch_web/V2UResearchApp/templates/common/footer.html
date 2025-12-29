@@ -1,0 +1,68 @@
+{% load custom_tags %}
+{% load static %}
+<footer id="footer">
+    <div id="inner-footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-12 widget">
+                    <h3>Important Links</h3>
+                    <ul class="links">{% pages as pages_list %}
+                        {% for page in pages_list %}
+                        <li><a href="{{page.get_absolute_url}}">{{page.title|safe}}</a></li>
+                        {% endfor %}
+                        <li><a href="{% url 'contact_us' %}">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 widget">
+                    <h3>INFORMATION</h3>
+                    <ul class="links">
+                        <li><a href="#">New products</a></li>
+                        <li><a href="#">Top sellers</a></li>
+                        <li><a href="#">Specials</a></li>
+                        <li><a href="#">Manufacturers</a></li>
+                        <li><a href="#">Suppliers</a></li>
+                        <li><a href="#">Our stores</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-4 col-xs-12 widget">
+                    <h3>MY ACCOUNT</h3>
+                    <div class="twitter_feed_widget"></div>
+                </div>
+                <div class="clearfix visible-sm"></div>
+                <div class="col-md-3 col-sm-12 col-xs-12 widget">
+                    <h3>Region&nbsp;</h3>
+                    <ul class="links">
+                        <li><a href="#">USA</a></li>
+                        <li><a href="#">Canada</a></li>
+                        <!-- <li><a href="#">Australia</a></li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer-bottom">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-7 col-sm-7 col-xs-12 footer-social-links-container">
+                    <ul class="social-links clearfix">
+                        <li><a href="#" class="social-icon icon-facebook"></a></li>
+                        <li><a href="#" class="social-icon icon-twitter"></a></li>
+                        <li><a href="#" class="social-icon icon-rss"></a></li>
+                        <li><a href="#" class="social-icon icon-delicious"></a></li>
+                        <li><a href="#" class="social-icon icon-linkedin"></a></li>
+                        <li><a href="#" class="social-icon icon-flickr"></a></li>
+                        <li><a href="#" class="social-icon icon-skype"></a></li>
+                        <li><a href="#" class="social-icon icon-email"></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-5 col-sm-5 col-xs-12 footer-text-container">
+                    <p>&copy; 2014 Powered by Company&trade;. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+</div><a href="#" id="scroll-top" title="Scroll to Top"><i class="fa fa-angle-up"></i></a>
+</body>
+
+</html>

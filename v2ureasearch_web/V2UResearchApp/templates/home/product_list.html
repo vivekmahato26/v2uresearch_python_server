@@ -1,0 +1,52 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+{% if object_list %}
+<div class="bg-theme text-white d-none">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    {% for product in object_list %}
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="item item-hover mb-0">
+                            <div class="item-image-wrapper">
+                                <a href="{{product.get_absolute_url}}">
+                                    <img src="/static/images/{{product.feature_image_url}}" alt="{{product.name}}"
+                                        class="d-block m-auto img-responsive"/>  <span class="product-text-page">{{ product.name }}</span>
+                                </a>
+                            </div><!-- End .item-image-wrapper -->
+                        </div><!-- End .item -->
+
+                    </div><!-- End .col-md-3 -->
+                    {% if forloop.counter|divisibleby:2 %}
+                    <div class="clearfix visible-sm"></div>
+                    {% endif %}
+
+                    {% if forloop.counter|divisibleby:4 and not forloop.last %}
+                </div><!-- End .row -->
+            </div><!-- End .col-md-12 -->
+        </div><!-- End .row -->
+    </div>
+</div>
+<div class="text-black">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+
+                    {% endif %}
+
+
+                    {% endfor %}
+                </div><!-- End .row -->
+            </div><!-- End .col-md-12 -->
+        </div><!-- End .row -->
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}

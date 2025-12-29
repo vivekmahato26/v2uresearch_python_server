@@ -1,0 +1,52 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="bg-light py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold mb-3">Explore Sectors</h1>
+            <p class="lead text-muted mx-auto" style="max-width: 600px;">
+                Discover comprehensive research reports and insights across various industries.
+            </p>
+        </div>
+
+        {% if sectors %}
+        <div class="row">
+            {% for sector in sectors %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                 <a href="{{ sector.get_absolute_url }}" class="text-decoration-none h-100 d-block">
+                    <div class="groww-card h-100">
+                        {% if sector.feature_image_url %}
+                        <img src="{{ sector.feature_image_url.url }}" class="groww-card-img" alt="{{ sector.sector_name }}" style="height: 160px; object-fit: cover;">
+                        {% else %}
+                        <div class="groww-card-img d-flex align-items-center justify-content-center bg-light text-muted" style="height: 160px;">
+                            <i class="fas fa-chart-pie fa-3x opacity-50"></i>
+                        </div>
+                        {% endif %}
+                        <div class="groww-card-body d-flex flex-column">
+                            <h5 class="groww-card-title mb-2">{{ sector.sector_name }}</h5>
+                            <p class="groww-card-text small text-muted mb-3 flex-grow-1">
+                                {{ sector.description|striptags|truncatewords:8 }}
+                            </p>
+                            <span class="text-success fw-bold small">
+                                Explore <i class="fas fa-arrow-right ms-1"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <div class="mb-3 text-muted">
+                <i class="fas fa-search fa-3x"></i>
+            </div>
+            <h3>No sectors found</h3>
+            <p class="text-muted">There are no active sectors available for this region at the moment.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

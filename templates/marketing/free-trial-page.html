@@ -1,0 +1,73 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5 mt-5 mb-5">
+    <div class="row justify-content-center align-items-center g-5">
+        
+        <!-- Illustration/Banner Column -->
+        <div class="col-lg-6 d-none d-lg-block text-center">
+            <img src="{% static 'images/nri-banner.svg' %}" class="img-fluid" alt="Free Trial" style="max-height: 450px;">
+        </div>
+
+        <!-- Form Column -->
+        <div class="col-lg-6 col-md-10">
+            <div class="card border-0 shadow-sm p-4 p-md-5">
+                <div class="card-body">
+                    <!-- Title -->
+                    <div class="text-center mb-5">
+                        <h2 class="fw-bold mb-3">Start Your <span class="text-primary">7 Days</span> Free Trial</h2>
+                        <p class="text-muted">Experience premium research and market analysis for free.</p>
+                    </div>
+
+                    <!-- Trial Form -->
+                    <form action="/lp/free-trial-post" method="post">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label small text-muted">First Name</label>
+                                <input type="text" class="form-control form-control-lg" id="firstName" name="firstName" placeholder="First Name" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label small text-muted">Last Name</label>
+                                <input type="text" class="form-control form-control-lg" id="lastName" name="lastName" placeholder="Last Name" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label small text-muted">Email Address</label>
+                                <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Email Address" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label small text-muted">Mobile Number</label>
+                                <input type="tel" class="form-control form-control-lg" id="phone" name="phone" placeholder="Mobile Number" required>
+                            </div>
+                        </div>
+
+                        <!-- Terms Consent -->
+                        <div class="mb-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="terms_consent" id="terms_consent" required>
+                                <label class="form-check-label small text-muted" for="terms_consent">
+                                    By submitting your details, you agree to our <a href="#" class="text-decoration-none text-primary">Terms and Conditions</a>, 
+                                    <a href="#" class="text-decoration-none text-primary">Privacy Policy</a> and consent to receive marketing updates.
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-lg w-100 fw-bold py-3 mb-3">
+                                Get Started Now
+                            </button>
+                            <p class="small text-muted mb-0">* No credit card required</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

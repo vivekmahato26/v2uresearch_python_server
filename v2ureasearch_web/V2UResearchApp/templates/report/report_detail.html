@@ -1,0 +1,14 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+<!-- <img src="{{ report.feature_image_url }}" class="card-img-top" alt="...">
+<h2 class="pt-2">{{report.title}}</h2><div class="byline">
+    <address class="author">By {{report.author}} on <time pubdate datetime="2011-08-28" title="August 28th, 2011">{{report.published_date|date}}</time></address>
+</div> -->
+{{report.description|safe}}
+</div>
+{% endblock %}
+
+

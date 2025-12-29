@@ -1,0 +1,154 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted">Home</a></li>
+            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Research</a></li>
+            <li class="breadcrumb-item active text-truncate" style="max-width: 300px;" aria-current="page">{{ report.title }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Main Content Area -->
+        <div class="col-lg-9">
+            <!-- Report Header -->
+            <div class="mb-4">
+                <h1 class="fw-bold mb-3 text-primary">{{ report.title }}</h1>
+                <div class="d-flex align-items-center text-muted small">
+                    <span class="me-3"><i class="far fa-calendar-alt me-1"></i> {{ report.published_date|date:"F j, Y" }}</span>
+                    {% if report.segment %}
+                    <span class="me-3"><i class="fas fa-tag me-1"></i> {{ report.segment }}</span>
+                    {% endif %}
+                    {% if report.region %}
+                    <span><i class="fas fa-globe me-1"></i> {{ report.region }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Dynamic Template Content -->
+            <div class="bg-card p-4 rounded-3 shadow-sm border border-light">
+                {% with template_name=report.custom_templates|stringformat:"s"|add:".html" %}
+                    {% include 'report/'|add:template_name %}
+                {% endwith %}
+            </div>
+
+            <!-- General Description Section -->
+            <div class="mt-4 mb-4">
+                 <!-- Left Description (Using report.left_description if available, or description) -->
+                 {% if report.left_description or report.description %}
+                 <div class="bg-card p-4 rounded-3 shadow-sm border border-light">
+                    <h4 class="fw-bold mb-3" style="color: #44475B;">Report Summary</h4>
+                    <div class="text-muted" style="line-height: 1.8;">
+                        {% if report.left_description %}
+                            {{ report.left_description|safe }}
+                        {% else %}
+                            {{ report.description|safe }}
+                        {% endif %}
+                    </div>
+                 </div>
+                 {% endif %}
+            </div>
+
+            <!-- Disclaimer Section (Unified) -->
+            <div class="mt-5 p-4 bg-surface rounded-3 border border-light">
+                <div class="d-flex">
+                    <div class="me-3 text-secondary">
+                        <i class="fas fa-exclamation-circle fa-lg mt-1"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold text-secondary mb-2">Disclaimer</h6>
+                        <p class="mb-0 text-muted small" style="line-height: 1.6;">
+                            V2U Research (Ontario Corporation Number (OCN/BIN) 1000897819) provides an honest investment opinion based on information sourced which can not be guaranteed to be accurate, and hence the company will not be liable for any losses as a result of decision based on this research report. Please, consult your investment advisor before investing as investing in equities comes with risk of financial losses.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form Section (New) -->
+            <div class="mt-5 mb-5">
+                {% include 'home/includes/contact_form.html' %}
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-3">
+             <!-- Subscribe / Contact Sales Form (New) -->
+             <div class="mb-4">
+                <div class="bg-card p-4 rounded-3 shadow-sm border border-light">
+                    <h5 class="fw-bold mb-3 text-primary">Subscribe to Report</h5>
+                    <p class="text-muted small mb-3">Fill out the form below to enquire about this report.</p>
+                    
+                    <form action="{% url 'contact_us' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" name="first_name" class="form-control form-control-sm" placeholder="First Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="last_name" class="form-control form-control-sm" placeholder="Last Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" name="email" class="form-control form-control-sm" placeholder="Email Address" required>
+                        </div>
+                         <div class="mb-3">
+                            <input type="tel" name="phone" class="form-control form-control-sm" placeholder="Phone (Optional)">
+                        </div>
+                        
+                        <input type="hidden" name="source" value="Report Subscription: {{ report.title }}">
+                        
+                        <button type="submit" class="btn btn-primary w-100 fw-bold">Get Full Access</button>
+                    </form>
+                </div>
+             </div>
+
+             <!-- Latest Reports Widget -->
+            <div class="mb-4">
+                 <h5 class="fw-bold mb-3 text-primary">Latest Research</h5>
+                 <div class="bg-card rounded-3 shadow-sm border border-light">
+                    <!-- Note: In a real scenario, we'd need a context variable for latest reports here. 
+                         Since this is a detail view, we might need a custom tag or context processor, 
+                         or rely on the view passing 'latest_reports'. 
+                         For now, we'll placeholder or leave empty if not available in context. -->
+                    {% if latest_reports %}
+                        <div class="list-group list-group-flush">
+                        {% for r in latest_reports %}
+                            <a href="{{ r.get_absolute_url }}" class="list-group-item list-group-item-action p-3 border-0 border-bottom">
+                                <h6 class="mb-1 text-dark small fw-bold">{{ r.title }}</h6>
+                                <small class="text-muted">{{ r.published_date|date:"M d, Y" }}</small>
+                            </a>
+                        {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="p-3">
+                            <p class="text-muted small mb-0">Stay updated with our latest market insights.</p>
+                            <a href="/report/research" class="btn btn-outline-primary btn-sm w-100 mt-3">View All Reports</a>
+                        </div>
+                    {% endif %}
+                 </div>
+            </div>
+
+            <!-- Sectors Widget -->
+             <div class="mb-4">
+                <h5 class="fw-bold mb-3 text-primary">Explore Sectors</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    {% if sectors %}
+                        {% for s in sectors|slice:":8" %}
+                        <a href="#" class="badge bg-card text-muted border border-light fw-normal p-2 text-decoration-none">{{ s.sector_name }}</a>
+                        {% endfor %}
+                    {% else %}
+                        <!-- Placeholder chips -->
+                        <span class="badge bg-light text-dark border fw-normal p-2">Technology</span>
+                        <span class="badge bg-light text-dark border fw-normal p-2">Healthcare</span>
+                        <span class="badge bg-light text-dark border fw-normal p-2">Finance</span>
+                        <span class="badge bg-light text-dark border fw-normal p-2">Energy</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

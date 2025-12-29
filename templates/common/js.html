@@ -1,0 +1,35 @@
+{% load static %}
+    <!-- <script src="{% static 'js/bootstrap.min.js' %}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{% static 'js/smoothscroll.js' %}"></script>
+    <script src="{% static 'js/jquery.debouncedresize.js' %}"></script>
+    <script src="{% static 'js/retina.min.js' %}"></script>
+    <script src="{% static 'js/jquery.placeholder.js' %}"></script>
+    <script src="{% static 'js/jquery.hoverIntent.min.js' %}"></script>
+    <script src="{% static 'js/twitter/jquery.tweet.min.js' %}"></script>
+    <script src="{% static 'js/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jflickrfeed.min.js' %}"></script>
+    <script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/jquery.themepunch.tools.min.js' %}"></script>
+    <script src="{% static 'js/jquery.themepunch.revolution.min.js' %}"></script>
+    <script src="{% static 'js/colpick.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/mobile-menu.js' %}"></script>
+    <script>$(function () { jQuery("#slider-rev").revolution({ delay: 8e3, startwidth: 1170, startheight: 600, onHoverStop: "true", hideThumbs: 250, navigationHAlign: "center", navigationVAlign: "bottom", navigationHOffset: 0, navigationVOffset: 20, soloArrowLeftHalign: "left", soloArrowLeftValign: "center", soloArrowLeftHOffset: 0, soloArrowLeftVOffset: 0, soloArrowRightHalign: "right", soloArrowRightValign: "center", soloArrowRightHOffset: 0, soloArrowRightVOffset: 0, touchenabled: "on", stopAtSlide: -1, stopAfterLoops: -1, dottedOverlay: "none", fullWidth: "on", spinned: "spinner5", shadow: 0, hideTimerBar: "on" }) });</script>
+    <script>(function () { var js = "window['__CF$cv$params']={r:'7e21805acec4f49c',m:'T3t9VnE7b_L.BsMV4ko8r.VWv3zznlSaT.qNYCPFY3I-1688579963-0-AcSkIaVgLCZL8cXwbEsP1o4CGDEAKBm6UlMSSyJAfMhB'};_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='../../../cdn-cgi/challenge-platform/h/g/scripts/jsd/19b997cb/invisible.js',document.getElementsByTagName('head')[0].appendChild(_cpo);"; var _0xh = document.createElement('iframe'); _0xh.height = 1; _0xh.width = 1; _0xh.style.position = 'absolute'; _0xh.style.top = 0; _0xh.style.left = 0; _0xh.style.border = 'none'; _0xh.style.visibility = 'hidden'; document.body.appendChild(_0xh); function handler() { var _0xi = _0xh.contentDocument || _0xh.contentWindow.document; if (_0xi) { var _0xj = _0xi.createElement('script'); _0xj.nonce = ''; _0xj.innerHTML = js; _0xi.getElementsByTagName('head')[0].appendChild(_0xj); } } if (document.readyState !== 'loading') { handler(); } else if (window.addEventListener) { document.addEventListener('DOMContentLoaded', handler); } else { var prev = document.onreadystatechange || function () { }; document.onreadystatechange = function (e) { prev(e); if (document.readyState !== 'loading') { document.onreadystatechange = prev; handler(); } }; } })();</script>
+
+    <script>
+        $('select').on('change', function() {
+            var region = { 'region' : $(this).find(":selected").val() }
+            console.log(region)
+
+            $.ajax({
+                url: "{% url 'set_cookie' %}",
+                type: 'POST',
+                data: region,
+                dataType: "text",
+                success: function(result){}
+            });
+        });
+    </script>

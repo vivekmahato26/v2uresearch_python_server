@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8"><![endif]--><!--[if IE 9]><html class="ie9"><![endif]--><!--[if !IE]><!-->
+<html><!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>V2U Research :: Providing Investment Insights</title>
+    <meta name="description" content="Responsive modern ecommerce Html5 Template">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    {% include "common/css.html" %}
+    
+    <script src="../../../../ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../static/js/jquery-1.11.1.min.js"><\/script>');</script><!--[if lt IE 9]><script src="../static/js/html5shiv.js"></script>
+            <script src="../static/js/respond.min.js"></script><![endif]-->
+    {% block extracss %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="wrapper">
+
+      {% include "common/header.html" %}
+
+      {% block ticker %}
+      {% include "common/header_ticker.html" %}
+      {% endblock %}
+
+{% block content %}
+
+{% endblock %}
+
+        {% include "common/footer.html" %}
+
+    {% include "common/js.html" %}
+
+    {% block extrajs %}
+    {% endblock %}
+
+</body>
+</html>

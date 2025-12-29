@@ -1,0 +1,271 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block content %}
+
+        <div class="container-fluid">
+            {% if products %}
+            <div class="row bg-theme">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="latest-items-slider owl-carousel">
+                        {% for product in products %}
+                        <!-- <div class="col-md-3 col-sm-6 col-xs-12"> -->
+                            <div class="item item-hover mb-0">
+                                <div class="item-image-wrapper">
+                                    <a href="{{ product.get_absolute_url }}">
+                                        <img src="/static/images/{{product.feature_image_url}}" alt="{{ product.name }}"
+                                            class="d-block m-auto img-responsive"> <span class="product-text">{{ product.name }}</span>
+                                            <!-- <img src="{% static 'images/product.feature_image_url' %}" alt="{{ product.name }}"
+                                                class="d-block m-auto img-responsive"> -->
+                                    </a>
+                                </div><!-- End .item-image-wrapper -->
+                            </div><!-- End .item -->
+
+                        <!-- </div>End .col-md-3 -->
+                        <!-- {% if forloop.counter|divisibleby:2 %} -->
+                        <!-- <div class="clearfix visible-sm"></div>
+                        {% endif %} -->
+                        {% endfor %}
+                    </div><!-- End .row -->
+                </div><!-- End .col-md-12 -->
+            </div><!-- End .row -->
+            {% endif %}
+            {% if reports %}
+            <div class="row bg-theme">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 main-content">
+                            <div class="latest-items carousel-wrapper">
+                                <!-- <div class="carousel-controls">
+                                    <div id="latest-items-slider-prev" class="carousel-btn carousel-btn-prev"></div>
+                                    <div id="latest-items-slider-next" class="carousel-btn carousel-btn-next carousel-space"></div>
+                                </div> -->
+                                <div class="latest-items-slider owl-carousel">
+                                    {% for report in reports %}
+                                    <div class="item item-hover">
+                                        <div class="item-image-wrapper product">
+                                            <a href="{{ report.get_absolute_url }}">
+                                                <img src="static/images/Report view Dashboard Card - AUS Coffee.png" alt="item1" class="item-image">
+                                                <!-- <img src="static/images/{{report.feature_image_url}}" alt="item1" class="item-image"> -->
+                                                <div class="overlay">
+                                                    <span class="bg-white-transparent p-1">{{report.author}} | <i class="fa fa-calendar" aria-hidden="true"></i>{{report.published_date|date}}</span>
+                                                    <p class="mb-0 mt-3">{{report.title|truncatewords:8}}</p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <section id="content">
+            {% if featured_reports %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 main-content">
+                                <div class="xlg-margin"></div>
+                                <div class="hot-items carousel-wrapper ">
+                                    <header class="content-title">
+                                        <div class="title-bg">
+                                            <h2 class="title">Special Reports</h2>
+                                        </div>
+                                    </header>
+                                    <!-- <div class="carousel-controls">
+                                        <div id="hot-items-slider-prev" class="carousel-btn carousel-btn-prev"></div>
+                                        <div id="hot-items-slider-next"
+                                            class="carousel-btn carousel-btn-next carousel-space"></div>
+                                    </div> -->
+                                    <div class="hot-items-slider owl-carousel">
+
+                        {% for report in featured_reports %}
+                        <div class="item item-hover">
+                            <div class="card m-auto" >
+                                <!-- <img src="{{ report.feature_image_url }}" class="card-img-top" alt="..."> -->
+                                <img src="static/images/Report view Dashboard Card - AUS Coffee.png" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                  <h5 class="card-title">{{ report.title }}</h5>
+                                  <p class="card-text">{{report.short_description|truncatewords:15}}</p>
+                                  <a href="{{ report.get_absolute_url }}" class="btn btn-primary">View Report</a>
+                                </div>
+                              </div>
+                        </div>
+                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="bg-theme">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 main-content">
+                                    <div class="xlg-margin"></div>
+                                    <div class="hot-items carousel-wrapper ">
+                                        <header class="content-title">
+                                            <div class="">
+                                                <h2 class="title bg-theme text-white">Sectors</h2>
+                                            </div>
+                                        </header>
+                                        <!-- <div class="carousel-controls">
+                                            <div id="hot-items-slider-prev" class="carousel-btn carousel-btn-prev"></div>
+                                            <div id="hot-items-slider-next"
+                                                class="carousel-btn carousel-btn-next carousel-space"></div>
+                                        </div> -->
+                                        <div class="hot-items-slider owl-carousel">
+
+
+                                    {% for sector in sectors %}
+                                    <div class="item item-hover">
+                                        <div class="card m-auto" >
+                                            <!-- <img src="{{sector.feature_image_url}}" class="card-img-top" alt="..."> -->
+                                            <img src="static/images/Report view Dashboard Card - AUS Coffee.png" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                            <h5 class="card-title">{{sector.sector_name|safe}}</h5>
+                                            <p class="card-text">{{sector.description|safe|truncatewords:10}}</p>
+                                            <a href="{{sector.get_absolute_url}}" class="btn btn-primary">View Report</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% comment %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12 main-content">
+                                <div class="xlg-margin"></div>
+                                <div class="hot-items carousel-wrapper ">
+                                    <header class="content-title">
+                                        <div class="title-bg">
+                                            <h2 class="title">Our Blogs</h2>
+                                        </div>
+                                    </header>
+                                    <!-- <div class="carousel-controls">
+                                        <div id="hot-items-slider-prev" class="carousel-btn carousel-btn-prev"></div>
+                                        <div id="hot-items-slider-next"
+                                            class="carousel-btn carousel-btn-next carousel-space"></div>
+                                    </div> -->
+                                    <div class="hot-items-slider owl-carousel">
+                                        <div class="item item-hover">
+                                            <div class="card m-auto" >
+                                                <img src="/static/images/Dividend Stocks.jpg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Card title</h5>
+                                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="item item-hover">
+                                            <div class="card m-auto" >
+                                                <img src="/static/images/Dividend Stocks.jpg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Card title</h5>
+                                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="item item-hover">
+                                            <div class="card m-auto" >
+                                                <img src="/static/images/Dividend Stocks.jpg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Card title</h5>
+                                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="item item-hover">
+                                            <div class="card m-auto" >
+                                                <img src="/static/images/Dividend Stocks.jpg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Card title</h5>
+                                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="item item-hover">
+                                            <div class="card m-auto" >
+                                                <img src="/static/images/Dividend Stocks.jpg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Card title</h5>
+                                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <div class="item item-hover">
+                                            <div class="card m-auto" >
+                                                <img src="/static/images/Dividend Stocks.jpg" class="card-img-top" alt="...">
+                                                <div class="card-body">
+                                                  <h5 class="card-title">Card title</h5>
+                                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                                </div>
+                                              </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endcomment %}
+            <div class="container">
+                <div class="row bg-theme text-white pt-3 pb-3 pl-5 pr-5">
+                    <div class="col-sm-6 border-end">Call now
+                        for free consultation : +134 3338 4488</div>
+                    <div class="col-sm-6"> Mail us now
+                        for free consultation : info@v2u-research.ca</div>
+                </div>
+            </div>
+            <div class="xlg-margin"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-7 ">
+                        <h2>About V2U Research Inc</h2>
+                        <p>
+                            V2U Research Inc is an independent equities research firm that provides quality, unbiased & timely recommendations around buying, selling, or holding of stocks. Our goal is to provide you with the best market intelligence at the right time, at the right price.
+                        </p>
+                        <p>
+                            Customers are able to diversify their buying decisions due to our extensive research which is purely based on fundamental & technical analysis, macro-economic factors, price-sensitive information & the changing geopolitical aspects, all of which determine the future of the stock market.
+                        </p>
+                        <p>
+                            YOU – our clients are always our priority; therefore, we endeavor to build a long-lasting relationship with you based on trust & reliability. We truly care if you succeed, hence our reports are unbiased, meticulous & to the point. The markets are moving quickly these days & there is no dearth of spammy content, it is this overload of information that makes you wary of making a timely investment decision, most opportunities have come & gone by the time people even realize it - Due diligence is not a luxury, it is a basic need.
+                        </p>
+                        <a href="#" class="btn btn-primary">Read More</a>
+                    </div>
+                    <div class="col-sm-5 text-center"> 
+                        <h2>Clients Testimonials</h2>
+                        <p>Appreciation</p>
+                        <blockquote class="testimonial">Knowledgeable and easy-to-understand Research and a friendly account manager made it very easy for me to trade in the markets. I am able to make my own decisions
+                            of when to buy a stock or how long to hold it or when to sell it, of course with the help of Prophecy’s daily reports. Very pleased with the service so far, no complaints.</blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

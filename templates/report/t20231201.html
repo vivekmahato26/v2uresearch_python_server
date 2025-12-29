@@ -1,0 +1,11 @@
+<!-- Standard Report Template Content -->
+{% if report.feature_image_url %}
+<div class="mb-4">
+    <img src="{{ report.feature_image_url.url }}" class="img-fluid w-100 rounded-3" alt="{{ report.title }}">
+</div>
+{% endif %}
+
+<div class="report-content" style="font-family: 'Roboto', sans-serif; color: #444; line-height: 1.8;">
+    {{ report.description|safe }}
+</div>
+<!-- Disclaimer removed (handled by parent) -->

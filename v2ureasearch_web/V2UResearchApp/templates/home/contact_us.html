@@ -1,0 +1,92 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div id="wrapper">
+        <section id="content">
+            <div id="breadcrumb-container">
+                <div class="container">
+                    <ul class="breadcrumb">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active">Contact Us</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <header class="content-title">
+                            <h1 class="title">Contact Us</h1>
+                            <p class="title-desc">We love to here from you. Lets get in touch.</p>
+                        </header>
+                        <div class="xs-margin"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div id="map"></div>
+                            </div>
+                            <div class="col-md-8 col-sm-8 col-xs-12">
+                                <h2 class="sub-title">LEAVE COMMENT</h2>
+                                <div class="row">
+                                    <form method="POST" id="contact-form">
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            {% csrf_token %}
+                                            {{form.as_p}}
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <input type="submit" value="SUBMIT" class="btn btn-custom-2 md-margin">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <h2 class="sub-title">CONTACT DETAILS</h2>
+                                <ul class="contact-details-list">
+                                    <li><span class="contact-icon contact-icon-phone"></span>
+                                        <ul>
+                                            <li>0203 280 3703</li>
+                                            <li>0203 281 3704</li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="contact-icon contact-icon-mobile"></span>
+                                        <ul>
+                                            <li>445-115-747-38</li>
+                                            <li>445-170-029-32</li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="contact-icon contact-icon-email"></span>
+                                        <ul>
+                                            <li><a href="https://portotheme.com/cdn-cgi/l/email-protection"
+                                                    class="__cf_email__"
+                                                    data-cfemail="5b0d3e353e3f34291b3c363a323775383436">[email&#160;protected]</a>
+                                            </li>
+                                            <li><a href="https://portotheme.com/cdn-cgi/l/email-protection"
+                                                    class="__cf_email__"
+                                                    data-cfemail="1c4a79727978736e5c7d7370327f7371">[email&#160;protected]</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><span class="contact-icon contact-icon-skype"></span>
+                                        <ul>
+                                            <li>Venedor_store</li>
+                                            <li>Venedor_support</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div><a href="#" id="scroll-top" title="Scroll to Top"><i class="fa fa-angle-up"></i></a>
+
+{% endblock %}
+
+{% block extrajs %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<!-- prettier-ignore -->
+<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+    ({key: "AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg", v: "beta"});</script>
+{% endblock %}
+

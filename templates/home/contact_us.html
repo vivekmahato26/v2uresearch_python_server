@@ -1,0 +1,81 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contact Us</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <!-- Contact Form Section -->
+        <div class="col-lg-8 mb-4">
+            {% include 'home/includes/contact_form.html' %}
+        </div>
+
+        <!-- Contact Info & Map Section -->
+        <div class="col-lg-4 mb-4">
+            <div class="bg-light p-4 rounded-3 border h-100">
+                <h4 class="fw-bold mb-4" style="color: #44475B;">Contact Information</h4>
+                
+                <div class="d-flex mb-4">
+                    <div class="me-3 text-primary">
+                        <i class="fas fa-map-marker-alt fa-lg"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Our Office</h6>
+                        <p class="text-muted small mb-0">{{ region.corp_address|default:"123 Research Blvd, Toronto, ON, Canada" }}</p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-4">
+                    <div class="me-3 text-primary">
+                        <i class="fas fa-phone-alt fa-lg"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Phone</h6>
+                        <p class="text-muted small mb-0">
+                            {% if region.corp_contact %}
+                                <a href="tel:{{ region.corp_contact }}" class="text-decoration-none text-muted">{{ region.corp_contact }}</a>
+                            {% else %}
+                                +1 (555) 123-4567
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="d-flex mb-4">
+                    <div class="me-3 text-primary">
+                        <i class="fas fa-envelope fa-lg"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">Email</h6>
+                        <p class="text-muted small mb-0">
+                            {% if region.corp_email %}
+                                <a href="mailto:{{ region.corp_email }}" class="text-decoration-none text-muted">{{ region.corp_email }}</a>
+                            {% else %}
+                                support@v2uresearch.com
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embed (Static/Dynamic) -->
+                <div class="mt-4 rounded-3 overflow-hidden shadow-sm" style="height: 200px;">
+                     <!-- Simple placeholder map or iframe if latitude/longitude were available -->
+                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.436402092176!2d-79.38705648450198!3d43.64256617912171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb2c48565a05%3A0xe54b9df52c10b42c!2sCN%20Tower!5e0!3m2!1sen!2sca!4v1617823432023!5m2!1sen!2sca" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extrajs %}
+<!-- Google Maps API Script retained if needed, though iframe avoids API key issues for basic embedded map -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+{% endblock %}

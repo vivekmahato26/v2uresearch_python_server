@@ -1,0 +1,169 @@
+{% load static %}
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8"><![endif]--><!--[if IE 9]><html class="ie9"><![endif]--><!--[if !IE]><!-->
+<html><!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}V2U Research - Your Global Insights Partner{% endblock %}</title>
+    
+    <!-- Theme Detection (No flicker) -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('v2u_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <meta name="description" content="Responsive modern ecommerce Html5 Template">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    {% include "common/css.html" %}
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="{% static "js/jquery-3.6.0.min.js" %}"><\/script>');</script><!--[if lt IE 9]><script src="{% static 'js/html5shiv.js' %}"></script>
+	    <script src="{% static 'js/respond.min.js' %}"></script><![endif]-->
+    {% block extracss %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="wrapper">
+
+      {% include "common/header.html" %}
+
+      <!-- Messages -->
+      {% if messages %}
+      <div class="container mt-3">
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %}
+      </div>
+      {% endif %}
+
+{% block content %}
+
+{% endblock %}
+
+        {% include "common/footer.html" %}
+
+    {% include "common/js.html" %}
+
+    {% block extrajs %}
+    {% endblock %}
+
+    {% if not request.user.is_authenticated  %}
+    <!-- 7 Days Free Trial Ribbon -->
+    <div class="free-trial-ribbon" data-bs-toggle="modal" data-bs-target="#freeTrialModal">
+        <a href="javascript:void(0)">7 Days Free Trial</a>
+    </div>
+
+    <!-- Free Trial Modal -->
+    <div class="modal fade" id="freeTrialModal" tabindex="-1" aria-labelledby="freeTrialModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 16px; overflow: hidden;">
+          <div class="modal-body p-0">
+            <!-- Header Section -->
+            <div class="p-4 text-center" style="background: linear-gradient(135deg, #00D09C 0%, #00B386 100%); position: relative;">
+                 <button type="button" class="btn-close btn-close-white position-absolute end-0 top-0 m-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                 <div class="bg-white rounded-3 p-2 d-inline-block mb-3 shadow-sm">
+                    <img src="{% static 'images/Logo.svg' %}" height="40">
+                 </div>
+                 <h3 class="text-white fw-bold mb-0">Start Your 7 Days Free Trial</h3>
+            </div>
+            
+            <!-- Form Section -->
+            <form method="post" action="{% url 'free-trial-popup' %}" class="p-4">
+              {% csrf_token %}
+              <div class="row g-3">
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-muted mb-1">First Name*</label>
+                  <input type="text" name="firstName" class="form-control py-2 shadow-sm" placeholder="John" required>
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-muted mb-1">Last Name*</label>
+                  <input type="text" name="lastName" class="form-control py-2 shadow-sm" placeholder="Doe" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold text-muted mb-1">Email Address*</label>
+                  <input type="email" name="email" class="form-control py-2 shadow-sm" placeholder="john@example.com" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold text-muted mb-1">Mobile Number*</label>
+                  <input type="text" name="phone" class="form-control py-2 shadow-sm" placeholder="Enter Mobile Number*" required>
+                </div>
+                
+                <!-- Disclaimer Checkbox -->
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="trialDisclaimer" required>
+                    <label class="form-check-label text-muted" for="trialDisclaimer" style="font-size: 11px; line-height: 1.4;">
+                      By submitting your details and clicking on the button above for 7 days free trial, you agree to our 
+                      <a href="#" class="text-primary decoration-underline">Terms and Conditions</a>, 
+                      <a href="#" class="text-primary decoration-underline">Privacy Policy</a> and consent to receive marketing offers including to be contacted by email or phone. 
+                      Before continuing with this 7 days free trial, please read the 
+                      <a href="#" class="text-primary decoration-underline">Financial Services Guide</a> available here.
+                    </label>
+                  </div>
+                </div>
+                
+                <!-- Action Button -->
+                <div class="col-12 mt-4 text-center">
+                  <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow" style="background-color: #00D09C; border-color: #00D09C;">
+                    GET STARTED NOW
+                  </button>
+                  <div class="text-muted small mt-2">
+                    <i class="fas fa-lock me-1"></i> *No credit card required
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auto-Popup Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user has seen this popup before in this session
+            if (!localStorage.getItem('v2u_freetrial_popup_shown')) {
+                // Delay popup by 2 seconds for better UX
+                setTimeout(function() {
+                    var myModal = new bootstrap.Modal(document.getElementById('freeTrialModal'));
+                    myModal.show();
+                    // Set flag so it doesn't show again in this browser
+                    localStorage.setItem('v2u_freetrial_popup_shown', 'true');
+                }, 2000);
+            }
+        });
+    </script>
+    {% endif %}
+
+    <!-- <script type="text/javascript">
+        const carousel = new bootstrap.Carousel('#carouselFeaturedIndicators')
+    </script> -->
+    
+    <!-- Theme Toggle Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggles = document.querySelectorAll('#theme-toggle, .mobile-theme-toggle');
+            
+            themeToggles.forEach(toggle => {
+                toggle.addEventListener('click', function() {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('v2u_theme', newTheme);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

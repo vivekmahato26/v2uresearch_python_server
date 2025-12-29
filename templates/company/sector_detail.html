@@ -1,0 +1,82 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- Sector Header Section -->
+<div class="container-fluid py-5 mb-5 border-bottom bg-surface">
+    <div class="container">
+        <div class="row align-items-center">
+             <div class="col-lg-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-2">
+                        <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted">Sectors</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ object.sector_name }}</li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 fw-bold mb-3">{{ object.sector_name }}</h1>
+                <div class="lead mb-4">
+                    {{ object.description|safe }}
+                </div>
+            </div>
+             <div class="col-lg-4 d-none d-lg-block text-center">
+                 {% if object.feature_image_url %}
+                 <img src="{{ object.feature_image_url.url }}" class="img-fluid rounded-3 shadow-sm" style="max-height: 250px;" alt="{{ object.sector_name }}">
+                 {% else %}
+                  <img src="https://placehold.co/400x300/e5faf5/00d09c?text={{ object.sector_name|urlencode }}" class="img-fluid rounded-3 shadow-sm" alt="{{ object.sector_name }}">
+                 {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reports Grid Section -->
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-12 mb-4">
+             <h3 class="fw-bold">Latest Reports in {{ object.sector_name }}</h3>
+        </div>
+        
+        {% if reports %}
+            {% for report in reports %}
+            <div class="col-lg-3 col-md-6 mb-4">
+                <a href="{{ report.get_absolute_url }}" class="text-decoration-none h-100 d-block">
+                    <div class="groww-card h-100 d-flex flex-column">
+                        <div class="position-relative">
+                            <img src="{{ report.feature_image_url.url }}" class="groww-card-img" alt="{{ report.title }}">
+                            <div class="position-absolute top-0 end-0 m-2">
+                                <span class="badge shadow-sm">{{ report.published_date|date:"M d" }}</span>
+                            </div>
+                        </div>
+                        <div class="groww-card-body flex-grow-1 d-flex flex-column">
+                            <h5 class="groww-card-title mb-2">{{ report.title|truncatechars:60 }}</h5>
+                            <p class="groww-card-text text-muted small mb-3 flex-grow-1">
+                                {{ report.short_description|striptags|truncatewords:12 }}
+                            </p>
+                            <div class="mt-auto">
+                                <button class="groww-card-btn w-100">
+                                    {% if report.product.all.0.name|safe in perms %}
+                                    <i class="fas fa-eye me-1"></i> View Report
+                                    {% else %}
+                                    <i class="fas fa-lock me-1"></i> Buy Now
+                                    {% endif %}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                 <div class="text-muted">
+                    <i class="fas fa-folder-open fa-3x mb-3"></i>
+                    <p class="mb-0">No reports found in this sector yet.</p>
+                 </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

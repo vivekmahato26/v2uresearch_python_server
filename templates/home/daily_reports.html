@@ -1,0 +1,118 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <!-- Breadcrumbs -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Research Reports</li>
+        </ol>
+    </nav>
+
+    <!-- Header Section -->
+    <div class="row align-items-center mb-4">
+        <div class="col-12">
+            <h1 class="fw-bold">Research Library</h1>
+            <p class="text-muted">Explore our latest investment reports and analysis.</p>
+        </div>
+    </div>
+
+    <!-- Filters (Pills) -->
+    <div class="d-flex overflow-auto pb-3 mb-4 filter-scroll-container">
+        <a href="{% url 'research' %}" class="btn btn-sm rounded-pill px-3 py-2 me-2 text-nowrap {% if not segment %}btn-success text-white{% else %}btn-light text-dark border{% endif %}">
+            All Reports
+        </a>
+        {% for seg in segments %}
+            <a href="{% url 'research' %}/{{seg.slug}}" class="btn btn-sm rounded-pill px-3 py-2 me-2 text-nowrap {% if seg.slug == segment.slug %}btn-success text-white{% else %}btn-light text-dark border{% endif %}">
+                {{seg.name}}
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- Reports Grid -->
+    {% if reports|length == 0 %}
+        <div class="text-center py-5">
+            <i class="fas fa-search fa-3x text-light mb-3"></i>
+            <h3 class="text-secondary">No reports found</h3>
+            <p class="text-muted">Try selecting a different category.</p>
+        </div>
+    {% else %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4 mb-5">
+            {% for report in reports %}
+            <div class="col">
+                <a href="{{ report.get_absolute_url }}" class="text-decoration-none h-100 d-block">
+                    <div class="groww-card h-100 d-flex flex-column">
+                        <div class="position-relative">
+                             {% if report.feature_image_url %}
+                             <img src="{{ report.feature_image_url.url }}" class="groww-card-img" alt="{{ report.title }}">
+                             {% else %}
+                             <img src="https://placehold.co/600x400/f5f7f9/44475b?text=V2U+Research" class="groww-card-img" alt="{{ report.title }}">
+                             {% endif %}
+                            <div class="position-absolute top-0 end-0 m-2">
+                                <span class="badge bg-white text-dark shadow-sm">{{ report.published_date|date:"M d" }}</span>
+                            </div>
+                        </div>
+                        <div class="groww-card-body flex-grow-1 d-flex flex-column">
+                            <h5 class="groww-card-title mb-2" style="font-size: 1.1rem; line-height: 1.4;">{{ report.title|truncatechars:50 }}</h5>
+                            <p class="groww-card-text text-muted small mb-3 flex-grow-1">
+                                {{ report.short_description|striptags|truncatewords:10 }}
+                            </p>
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-light text-dark border fw-normal">{{ report.segment.name|default:"General" }}</span>
+                                    <span class="text-success small fw-bold">Read More <i class="fas fa-arrow-right ms-1"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link text-dark border-0" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for page_number in page_obj.paginator.page_range %}
+                        {% if page_number == page_obj.paginator.ELLIPSIS %}
+                            <li class="page-item disabled"><span class="page-link border-0">...</span></li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link border-0 {% if page_number == page_obj.number %}bg-success text-white rounded-circle shadow-sm{% else %}text-dark{% endif %}" 
+                                   style="width: 35px; height: 35px; text-align: center; line-height: 20px; margin: 0 5px;"
+                                   href="?page={{ page_number }}">
+                                   {{ page_number }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link text-dark border-0" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% load custom_tags %}
+
+{% block content %}
+{% if products %}
+<div class="bg-theme text-white">
+    <div class="container">
+       <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 py-5">
+                <div class="row">
+                    {% for product in products %}
+                    {% if product.is_active %}
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="item item-hover mb-0">
+                            <div class="item-image-wrapper">
+                                <a href="{{product.get_absolute_url}}">
+                                    <img src="{{product.feature_image_url.url}}" alt="{{product.name}}"
+                                        class="d-block m-auto img-responsive" width="213" height="268"/>
+                                </a>
+                            </div><!-- End .item-image-wrapper -->
+                            <div class="row product-info">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="product-text-page">{{ product.name }}</div>
+                                    <div class="product-price-page">
+                                    {% if perms|index:forloop.counter0 %}
+                                        <a href="{{product.get_absolute_url}}" class="btn btn-primary w-100">View Reports</a> 
+                                    {% else %}
+                                        <a href="{{product.get_absolute_url}}" class="btn btn-primary w-100">Buy $ {{product.cost}}</a> 
+                                    {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End .item -->
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div><!-- End .row -->
+            </div><!-- End .col-md-12 -->
+        </div><!-- End .row -->
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}

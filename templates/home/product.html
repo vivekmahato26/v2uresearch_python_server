@@ -1,0 +1,101 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+{% if object_list %}
+{% for product in object_list %}
+{% if forloop.counter|divisibleby:2 %}
+<div class="bg-theme">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    {% for product in object_list %}
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="item item-hover mb-0">
+                            <div class="item-image-wrapper">
+                                <a href="{{product.get_absolute_url}}">
+                                    <img src="{{product.feature_image_url}}" alt="{{product.name}}"
+                                        class="d-block m-auto img-responsive">  <span class="product-text-page">{{ product.name }}</span>
+                                </a>
+                            </div><!-- End .item-image-wrapper -->
+                        </div><!-- End .item -->
+
+                    </div><!-- End .col-md-3 -->
+                    {% if forloop.counter|divisibleby:2 %}
+                    <div class="clearfix visible-sm"></div>
+                    {% endif %}
+                    {% endfor %}
+                </div><!-- End .row -->
+            </div><!-- End .col-md-12 -->
+        </div><!-- End .row -->
+    </div>
+</div>
+{% else %}
+<div class="">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="item item-hover mb-0">
+                            <div class="item-image-wrapper">
+                                <a href="https://www.portotheme.com/html/venedor/pink/elements/product.html">
+                                    <img src="{% static 'images/US Coffee card.jpg' %}" alt="item1"
+                                        class="d-block m-auto img-responsive">  <span class="product-text-page">{{ product.name }}</span>
+                                </a>
+                            </div><!-- End .item-image-wrapper -->
+                        </div><!-- End .item -->
+    
+                    </div><!-- End .col-md-3 -->
+    
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="item item-hover mb-0">
+                            <div class="item-image-wrapper">
+                                <a href="https://www.portotheme.com/html/venedor/pink/elements/product.html">
+                                    <img src="{% static 'images/AU Coffee card.jpg' %}" alt="item1"
+                                        class="d-block m-auto img-responsive">  <span class="product-text-page">{{ product.name }}</span>
+                                </a>
+                            </div><!-- End .item-image-wrapper -->
+                        </div><!-- End .item -->
+    
+                    </div><!-- End .col-md-3 -->
+    
+                    <div class="clearfix visible-sm"></div>
+    
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="item item-hover mb-0">
+                            <div class="item-image-wrapper">
+                                <a href="https://www.portotheme.com/html/venedor/pink/elements/product.html">
+                                    <img src="{% static 'images/US Little champ card.jpg' %}" alt="item1"
+                                        class="d-block m-auto img-responsive">  <span class="product-text-page">{{ product.name }}</span>
+                                </a>
+                            </div><!-- End .item-image-wrapper -->
+                        </div><!-- End .item -->
+    
+                    </div><!-- End .col-md-3 -->
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="item item-hover mb-0">
+                            <div class="item-image-wrapper">
+                                <a href="https://www.portotheme.com/html/venedor/pink/elements/product.html">
+                                    <img src="{% static 'images/AU Little champ card.jpg' %}" alt="item1"
+                                        class="d-block m-auto img-responsive">  <span class="product-text-page">{{ product.name }}</span>
+                                </a>
+                            </div><!-- End .item-image-wrapper -->
+                        </div><!-- End .item -->
+    
+                    </div><!-- End .col-md-3 -->
+    
+    
+                </div><!-- End .row -->
+            </div><!-- End .col-md-12 -->
+        </div><!-- End .row -->
+    </div>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+{% endif %}
+{% endblock %}

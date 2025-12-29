@@ -1,0 +1,35 @@
+[2023-11-13 20:24:44 +0000] [328210] [INFO] Starting gunicorn 20.1.0
+[2023-11-13 20:24:44 +0000] [328210] [INFO] Listening at: http://0.0.0.0:8000 (328210)
+[2023-11-13 20:24:44 +0000] [328210] [INFO] Using worker: sync
+[2023-11-13 20:24:44 +0000] [328211] [INFO] Booting worker with pid: 328211
+[2023-11-13 20:24:49 +0000] [328210] [INFO] Handling signal: int
+[2023-11-13 20:24:50 +0000] [328210] [INFO] Shutting down: Master
+[2023-11-13 20:25:15 +0000] [328218] [INFO] Starting gunicorn 20.1.0
+[2023-11-13 20:25:15 +0000] [328218] [INFO] Listening at: http://0.0.0.0:8000 (328218)
+[2023-11-13 20:25:15 +0000] [328218] [INFO] Using worker: sync
+[2023-11-13 20:25:15 +0000] [328219] [INFO] Booting worker with pid: 328219
+[2023-11-14 00:34:55 +0000] [328218] [WARNING] Worker with pid 328219 was terminated due to signal 1
+[2023-11-14 00:34:55 +0000] [340966] [INFO] Booting worker with pid: 340966
+[2023-11-14 00:34:55 +0000] [328218] [INFO] Handling signal: hup
+[2023-11-14 00:34:55 +0000] [328218] [INFO] Hang up: Master
+[2023-11-14 00:34:55 +0000] [340967] [INFO] Booting worker with pid: 340967
+[2023-11-14 00:34:57 +0000] [340966] [INFO] Worker exiting (pid: 340966)
+/home/ec2-user/.local/lib/python3.9/site-packages/django/views/generic/list.py:86: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'marketing.models.Product'> QuerySet.
+  return self.paginator_class(
+[2023-11-14 07:46:51 +0000] [328218] [CRITICAL] WORKER TIMEOUT (pid:340967)
+[2023-11-14 07:46:51 +0000] [340967] [INFO] Worker exiting (pid: 340967)
+[2023-11-14 07:46:51 +0000] [362799] [INFO] Booting worker with pid: 362799
+[2023-11-14 19:06:35 +0000] [328218] [CRITICAL] WORKER TIMEOUT (pid:362799)
+[2023-11-14 19:06:35 +0000] [362799] [INFO] Worker exiting (pid: 362799)
+[2023-11-14 19:06:35 +0000] [399081] [INFO] Booting worker with pid: 399081
+[2023-11-15 00:32:20 +0000] [328218] [CRITICAL] WORKER TIMEOUT (pid:399081)
+[2023-11-15 00:32:20 +0000] [399081] [INFO] Worker exiting (pid: 399081)
+[2023-11-15 00:32:20 +0000] [416553] [INFO] Booting worker with pid: 416553
+/home/ec2-user/.local/lib/python3.9/site-packages/django/views/generic/list.py:86: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <class 'marketing.models.Product'> QuerySet.
+  return self.paginator_class(
+[2024-05-22 10:41:09 +0000] [462790] [INFO] Starting gunicorn 20.1.0
+[2024-05-22 10:41:09 +0000] [462790] [INFO] Listening at: http://0.0.0.0:8000 (462790)
+[2024-05-22 10:41:09 +0000] [462790] [INFO] Using worker: sync
+[2024-05-22 10:41:09 +0000] [462791] [INFO] Booting worker with pid: 462791
+[2024-05-22 10:55:11 +0000] [462791] [INFO] Parent changed, shutting down: <Worker 462791>
+[2024-05-22 10:55:11 +0000] [462791] [INFO] Worker exiting (pid: 462791)

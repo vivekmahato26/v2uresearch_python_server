@@ -1,0 +1,162 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% load custom_tags %}
+{% block content %}
+<div class="main-body" style="min-height: 100vh;">
+    <!-- Main Content Container -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                    <div class="card-header bg-primary text-white p-5 text-center position-relative" style="background: {% if pages.feature_image_url %}url('{{ pages.feature_image_url.url }}') center/cover no-repeat{% else %}linear-gradient(135deg, #00D09C 0%, #00a078 100%){% endif %} !important; min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+                        {% if pages.feature_image_url %}
+                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.5);"></div>
+                        {% endif %}
+                        <div class="position-relative" style="z-index: 2;">
+                            <h1 class="display-5 fw-bold mb-0 text-white" style="text-shadow: 0 2px 4px rgba(0,0,0,0.3);">{{pages.title|default:"Page Title"}}</h1>
+                            {% if pages.subtitle %}
+                                <p class="lead mt-3 mb-0 opacity-75 text-white" style="text-shadow: 0 1px 2px rgba(0,0,0,0.3);">{{ pages.subtitle }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-body p-5">
+                        <div class="content-body" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main);">
+                           {{pages.description|replace_media_url|safe}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* --- Main Content Typography --- */
+    .content-body {
+        font-family: 'Inter', sans-serif; /* or system-ui */
+    }
+
+    /* Headings */
+    .content-body h1, .content-body h2, .content-body h3, .content-body h4 {
+        color: #2c3e50;
+        font-weight: 700;
+        margin-top: 2.5rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.2;
+    }
+
+    .content-body h2 {
+        font-size: 2rem;
+        position: relative;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #eef2f7;
+        color: #1a252f;
+    }
+    .content-body h2::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 60px;
+        height: 2px;
+        background-color: #00D09C;
+    }
+
+    .content-body h3 {
+        font-size: 1.5rem;
+        border-left: 5px solid #00D09C;
+        padding-left: 1rem;
+        /* background: #f8fcfb; */ /* Optional: subtle background */
+        /* padding-top: 0.5rem; padding-bottom: 0.5rem; */
+    }
+
+    .content-body h4 {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #7f8c8d;
+    }
+
+    .content-body p {
+        margin-bottom: 1.5rem;
+        font-size: 1.125rem;
+    }
+
+    /* --- Lists --- */
+    /* Unordered Lists */
+    .content-body ul {
+        list-style: none; /* Remove default bullets */
+        padding-left: 1rem;
+        margin-bottom: 2rem;
+    }
+    .content-body ul li {
+        position: relative;
+        padding-left: 2rem;
+        margin-bottom: 0.75rem;
+    }
+    .content-body ul li::before {
+        content: '\2713'; /* Unicode Checkmark */
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #00D09C;
+        font-weight: bold;
+        font-size: 1.2rem;
+        line-height: 1.5;
+    }
+
+    /* Ordered Lists */
+    .content-body ol {
+        counter-reset: my-counter;
+        list-style: none;
+        padding-left: 1rem;
+        margin-bottom: 2rem;
+    }
+    .content-body ol li {
+        position: relative;
+        padding-left: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .content-body ol li::before {
+        counter-increment: my-counter;
+        content: counter(my-counter);
+        position: absolute;
+        left: 0;
+        top: 2px;
+        width: 1.8rem;
+        height: 1.8rem;
+        background-color: #e6fffa;
+        color: #00D09C;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 1.8rem;
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    /* --- Responsive Images --- */
+    .content-body img {
+        max-width: 100% !important;
+        height: auto !important;
+        border-radius: 12px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        margin: 2rem 0;
+        transition: transform 0.3s ease;
+    }
+    .content-body img:hover {
+        transform: translateY(-2px);
+    }
+    
+    /* Strong/Bold text */
+    .content-body strong, .content-body b {
+        color: #2c3e50;
+    }
+
+    /* Clean up inline styles override if needed */
+    .content-body span {
+        background-color: transparent !important; 
+    }
+</style>
+{% endblock %}
+
+

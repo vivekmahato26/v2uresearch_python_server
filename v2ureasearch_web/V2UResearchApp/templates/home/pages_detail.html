@@ -1,0 +1,12 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+<h2 class="pt-2">{{pages.title}}</h2><div class="byline">
+</div>
+{{pages.description|safe}}
+</div>
+{% endblock %}
+
+

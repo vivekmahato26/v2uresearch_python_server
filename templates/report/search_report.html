@@ -1,0 +1,67 @@
+{% extends "common/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="search-page">
+    <!-- Search Header -->
+    <div class="search-header">
+        <div class="container">
+            <h2 class="text-center">Search Reports</h2>
+            <form class="search-form" method="GET" action="{% url 'search' %}">
+                <div class="search-input-group">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        name="query" 
+                        placeholder="Search reports by company name or code..." 
+                        value="{{ request.GET.query }}"
+                        required
+                    >
+                    <button class="search-btn btn" type="submit">
+                        <i class="fas fa-search me-2"></i>Search
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    <div class="container">
+        {% if reports %}
+            <div class="search-results-info">
+                <strong>{{ search_results|length }}</strong> results found for "<mark>{{ request.GET.query }}</mark>"
+            </div>
+            
+            <div class="search-results-grid">
+                {% for report in search_results %}
+                <a href="{{ report.get_absolute_url }}" class="report-card text-decoration-none">
+                    <div class="report-image-wrapper">
+                        {% if report.feature_image_url %}
+                            <img src="{{ report.feature_image_url.url }}" alt="{{ report.title }}" class="report-image">
+                        {% else %}
+                            <img src="{% static 'images/Report view Dashboard Card - AUS Coffee.png' %}" alt="{{ report.title }}" class="report-image">
+                        {% endif %}
+                        <div class="report-overlay">
+                            <div class="report-date">
+                                <i class="far fa-calendar me-1"></i>{{ report.published_date|date:"M d, Y" }}
+                            </div>
+                            <div class="report-title">{{ report.title }}</div>
+                            {% if report.segment %}
+                            <div class="report-segment">{{ report.segment }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        {% elif request.GET.query %}
+            <div class="no-results">
+                <i class="fas fa-search-minus opacity-25"></i>
+                <h3>No results found</h3>
+                <p>We couldn't find any reports matching "<mark>{{ request.GET.query }}</mark>"</p>
+                <p class="mt-3">Try searching with different keywords or browse our <a href="{% url 'research' %}" class="text-primary fw-bold">latest reports</a>.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+<div class="bg-card p-5 rounded-3 shadow-sm border border-light h-100">
+    <h2 class="fw-bold mb-4">Get in Touch</h2>
+    <p class="text-muted mb-4">Have questions about our research or subscription plans? Fill out the form below and our team will get back to you shortly.</p>
+    
+    <form method="POST" action="{% url 'contact_us' %}">
+        {% csrf_token %}
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label for="id_first_name" class="form-label text-muted small fw-bold">First Name</label>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <div class="text-danger small mt-1">{{ form.first_name.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <label for="id_last_name" class="form-label text-muted small fw-bold">Last Name</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <div class="text-danger small mt-1">{{ form.last_name.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <label for="id_email" class="form-label text-muted small fw-bold">Email Address</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <label for="id_phone" class="form-label text-muted small fw-bold">Phone Number</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
+            <!-- Hidden Source Field -->
+            {% if form.source %}
+                {{ form.source }}
+            {% else %}
+                <input type="hidden" name="source" value="Report Page">
+            {% endif %}
+
+            <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-primary px-5 py-2 fw-bold">Submit Inquiry</button>
+            </div>
+        </div>
+    </form>
+</div>

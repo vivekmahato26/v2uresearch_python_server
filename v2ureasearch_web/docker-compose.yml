@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql:8.0.21
+    ports:
+    - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      # - ./db:/docker-entrypoint-initdb.d/:ro
+      - ./db/data:/var/lib/mysql
+      # - ./data/db:/var/lib/mysql
+    # volumes:
+    #   - ./mysql/datadir:/var/lib/mysql
+  
+  v2ur:
+    restart: always
+    build:
+      context: ./V2UResearchApp
+      dockerfile: dockerfile
+    entrypoint: ["./wait.sh"]
+    volumes:
+      - ./V2UResearchApp:/usr/src/app
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+      - "22:22"
+
+# volumes:
+#   db:

@@ -1,0 +1,13 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block content %}
+
+{% if not region %}
+    {% include 'home/choose_domain.html' %}
+{% elif not region.is_active %}
+    {% include 'home/comingsoon.html' %}
+{% else %}
+    {% include 'home/homepage.html' %}
+{% endif %}
+
+{% endblock %}
