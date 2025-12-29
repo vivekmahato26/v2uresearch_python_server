@@ -66,8 +66,11 @@ class EssentialsMixin:
             
             context['reports'] = Report.objects\
                 .filter(region=region, is_daily=True, published_date__lte=datetime.now())\
-                .only('title', 'slug', 'short_description')\
+                .only('title', 'slug', 'short_description', 'feature_image_url')\
                 .order_by('-published_date')[:6]
+
+
+
     
             context['featured_reports'] = Report.objects\
                 .filter(region=region, is_daily=False)\
