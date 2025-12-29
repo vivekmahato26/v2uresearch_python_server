@@ -271,11 +271,11 @@ class DailyReportListView(EssentialsMixin, ListView):
                 try:
                     rst = ResearchTypes.objects.get(slug=slug)
                     segment = rst
-                    reports_qs = Report.objects.filter(product__in=products, is_daily=True, segment=rst, region=region, published_date__lte=datetime.now()).order_by('-published_date')
+                    reports_qs = Report.objects.filter(product__in=products, is_daily=True, segment=rst, region=region, published_date__lte=datetime.now()).distinct().order_by('-published_date')
                 except:
                     pass
             else:
-                reports_qs = Report.objects.filter(product__in=products, is_daily=True, region=region, published_date__lte=datetime.now()).order_by('-published_date')
+                reports_qs = Report.objects.filter(product__in=products, is_daily=True, region=region, published_date__lte=datetime.now()).distinct().order_by('-published_date')
         
         paginator = Paginator(reports_qs, self.paginate_by)
         page = self.request.GET.get('page')

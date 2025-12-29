@@ -29,24 +29,14 @@ def getregioncookie(request):
     return HttpResponse("region @: "+  region);  
 
 def switchCountry(request, to):
-    # Normalize the input to uppercase
-    region_code = to.upper()
-    
-    # Determine the target domain
-    if region_code == 'AUS':
-        target_domain = 'https://v2uresearch.com.au'
+    response = redirect('home')
+    response.set_cookie('region', to, max_age=60*60*24*365)
+    if to == 'AUS':
+        return redirect('https://v2uresearch.com.au')
+    # elif to == 'IND':
+        # redirect('https://v2uresearch.in')
     else:
-        target_domain = 'https://v2uresearch.com'
-    
-    # Create the redirect response to the target domain's home page
-    response = redirect(target_domain + '/')
-    
-    # Set the cookie so the site remembers the preference across domains
-    # Note: For cookies to work across .com and .com.au, 
-    # the browser will treat them as separate cookies per domain.
-    response.set_cookie('region', region_code, max_age=60*60*24*365)
-    
-    return response
+        return redirect('https://v2uresearch.com')
 
 class SwitchView(EssentialsMixin, TemplateView):
     template_name = 'home/switch_countries.html'
