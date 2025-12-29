@@ -62369,3 +62369,13 @@ v2uresearch.com
 [2025-12-29 07:26:39 +0000] [973988] [DEBUG] POST /autodiscover/autodiscover.xml
 [2025-12-29 07:26:40 +0000] [973989] [DEBUG] POST /autodiscover/autodiscover.xml
 [2025-12-29 07:26:43 +0000] [973990] [DEBUG] GET /accounts/signup/
+[2025-12-29 07:27:33 +0000] [973990] [DEBUG] GET /admin/
+[2025-12-29 07:27:50 +0000] [973988] [DEBUG] GET /report/red-rock-resorts
+[2025-12-29 07:28:39 +0000] [973988] [DEBUG] POST /autodiscover/autodiscover.xml
+[2025-12-29 07:28:46 +0000] [973989] [DEBUG] GET /product/daily-report
+/home/ec2-user/v2ur/v2ur-env/lib64/python3.11/site-packages/django/db/models/fields/__init__.py:1595: RuntimeWarning: DateTimeField Report.published_date received a naive datetime (2025-12-29 07:28:46.980183) while time zone support is active.
+  warnings.warn(
+/home/ec2-user/v2ur/v2ur-env/lib64/python3.11/site-packages/django/db/models/fields/__init__.py:1595: RuntimeWarning: DateTimeField Report.published_date received a naive datetime (2025-12-29 07:28:46.984627) while time zone support is active.
+  warnings.warn(
+[2025-12-29 07:28:56 +0000] [973990] [DEBUG] GET /report/triple-flag-precious-metals-corp-7
+[2025-12-29 07:29:26 +0000] [973989] [DEBUG] POST /autodiscover/autodiscover.xml
