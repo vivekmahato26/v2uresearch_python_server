@@ -57,6 +57,18 @@
                     <div><i class="fas fa-envelope me-2 text-primary"></i> {{region.corp_email}}</div>
                     <div>{{ region.corp_text}} {{ region.corp_number }}</div>
                 </div>
+                <div class="social-links mt-3">
+                    {% for smm in social_handles %}
+                    <a href="{{smm.handle_url}}" target="_blank" class="text-secondary me-3 fs-5">
+                        {% if smm.handle == 'fb' %}<i class="fab fa-facebook-f"></i>
+                        {% elif smm.handle == 'x' %}<i class="fab fa-twitter"></i>
+                        {% elif smm.handle == 'li' %}<i class="fab fa-linkedin-in"></i>
+                        {% elif smm.handle == 'insta' %}<i class="fab fa-instagram"></i>
+                        {% elif smm.handle == 'yt' %}<i class="fab fa-youtube"></i>
+                        {% endif %}
+                    </a>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         
@@ -67,18 +79,7 @@
                 <p class="mb-0">&copy; {% now "Y" %} V2U Research. All Rights Reserved.</p>
             </div>
             <div class="col-md-6 text-md-end text-center">
-                <div class="social-links">
-                    {% for smm in social_handles %}
-                    <a href="{{smm.handle_url}}" target="_blank" class="text-white me-3 fs-5">
-                        {% if smm.handle == 'fb' %}<i class="fab fa-facebook-f"></i>
-                        {% elif smm.handle == 'x' %}<i class="fab fa-twitter"></i>
-                        {% elif smm.handle == 'li' %}<i class="fab fa-linkedin-in"></i>
-                        {% elif smm.handle == 'insta' %}<i class="fab fa-instagram"></i>
-                        {% elif smm.handle == 'yt' %}<i class="fab fa-youtube"></i>
-                        {% endif %}
-                    </a>
-                    {% endfor %}
-                </div>
+                <!-- Social links moved to Contact Us section -->
             </div>
         </div>
         

@@ -32,23 +32,21 @@ from django.conf import settings
 
 def switchCountry(request, to):
     response = None
+    to = to.upper()
     
     # Production redirection logic
     if not settings.DEBUG:
         if to == 'AUS':
-            response = redirect('https://v2uresearch.com.au')
+            response = redirect(f'https://v2uresearch.com.au?set_region={to}')
         # elif to == 'IND':
-            # response = redirect('https://v2uresearch.in')
+        #     response = redirect(f'https://v2uresearch.in?set_region={to}')
         else:
-            response = redirect('https://v2uresearch.com')
+            response = redirect(f'https://v2uresearch.com?set_region={to}')
     else:
-        # LOCAL DEVELOPMENT: Redirect to home
-        # This prevents TemplateDoesNotExist error from missing region.html
-        response = redirect('/')
+        # LOCAL DEVELOPMENT: Redirect to home with set_region param
+        response = redirect(f'/?set_region={to}')
 
-    # Ensure cookie is set on the response object
-    if response:
-        response.set_cookie('region', to, max_age=60*60*24*365)
+    # Cookie setting is now handled by RegionMiddleware based on set_region param
     
     return response
 
