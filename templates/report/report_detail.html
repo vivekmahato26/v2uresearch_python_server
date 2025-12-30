@@ -33,12 +33,81 @@
                 </div>
             </div>
 
-            <!-- Dynamic Template Content -->
+            <!-- Debug: HasPDF={{ report.pdf_url|yesno:"Yes,No" }} Auth={{ request.user.is_authenticated }} -->
+            <!-- LOCK VIEW: For Unauthenticated Users -->
+            {% if not request.user.is_authenticated %}
+            <div class="position-relative bg-light rounded-3 overflow-hidden shadow-sm border border-light" style="min-height: 800px;">
+                <!-- Background: Blurred PDF, Image, or Placeholder -->
+                <div style="filter: blur(5px); -webkit-filter: blur(5px); opacity: 0.6; pointer-events: none; overflow: hidden; height: 800px; background-color: #e9ecef;">
+                     {% if report.pdf_url %}
+                        <iframe src="{{ report.pdf_url.url }}#page=1&toolbar=0&navpanes=0&scrollbar=0&view=FitH" width="100%" height="800px" style="border: none;"></iframe>
+                     {% elif report.feature_image_url %}
+                        <img src="{{ report.feature_image_url.url }}" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.5;">
+                     {% else %}
+                        <!-- Generic Layout for Blur Effect -->
+                        <div class="p-5">
+                            <h1 class="display-4 text-muted mb-4">{{ report.title }}</h1>
+                            <p class="lead text-muted">.......................................................................................</p>
+                            <p class="text-muted">.......................................................................................</p>
+                            <p class="text-muted">.......................................................................................</p>
+                            <p class="text-muted">.......................................................................................</p>
+                        </div>
+                     {% endif %}
+                </div>
+
+                <!-- Lock Overlay -->
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background: rgba(255,255,255,0.4); backdrop-filter: blur(2px);">
+                     <div class="bg-white p-4 p-md-5 rounded-4 shadow-lg border text-center" style="max-width: 480px; width: 90%;">
+                          <div class="mb-4">
+                              <span class="d-inline-flex align-items-center justify-content-center bg-light rounded-circle p-3 mb-3 text-primary">
+                                  <i class="fas fa-lock fa-2x"></i>
+                              </span>
+                              <h3 class="fw-bold text-dark mb-2">Unlock Full Report</h3>
+                              <p class="text-muted small mb-0">To access the full analysis{% if report.pdf_url %} and download the PDF{% endif %}, please provide your contact details.</p>
+                          </div>
+                          
+                          <!-- Compact Access Form -->
+                          <form method="POST" action="{% url 'contact_us' %}">
+                              {% csrf_token %}
+                              <input type="hidden" name="source" value="Report Unlock: {{ report.title }}">
+                              <div class="row g-2 text-start">
+                                  <div class="col-6">
+                                      <label class="form-label small fw-bold text-muted mb-0">Name</label>
+                                      {{ form.first_name }}
+                                  </div>
+                                  <div class="col-6">
+                                      <label class="form-label small fw-bold text-muted mb-0">Surname</label>
+                                      {{ form.last_name }}
+                                  </div>
+                                  <div class="col-12">
+                                      <label class="form-label small fw-bold text-muted mb-0">Email</label>
+                                      {{ form.email }}
+                                  </div>
+                                  <div class="col-12">
+                                      <label class="form-label small fw-bold text-muted mb-0">Phone</label>
+                                      {{ form.phone }}
+                                  </div>
+                              </div>
+                              <div class="mt-4">
+                                  <button type="submit" class="btn btn-primary w-100 py-2 fw-bold shadow-sm">
+                                      <i class="fas fa-unlock me-2"></i> Request Access
+                                  </button>
+                                  <div class="text-muted small mt-2" style="font-size: 0.8rem;">
+                                      Are you already a subscriber? <a href="#" class="text-primary text-decoration-underline">Log In</a>
+                                  </div>
+                              </div>
+                          </form>
+                     </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- Original Dynamic HTML Template Fallback -->
             <div class="bg-card p-4 rounded-3 shadow-sm border border-light">
                 {% with template_name=report.custom_templates|stringformat:"s"|add:".html" %}
                     {% include 'report/'|add:template_name %}
                 {% endwith %}
             </div>
+            {% endif %}
 
             <!-- General Description Section -->
 

@@ -21,7 +21,12 @@
                     </div>
                     <div class="card-body p-5">
                         <div class="content-body" style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main);">
-                           {{pages.description|replace_media_url|safe}}
+                           {% if pages.slug == 'mission-vision-values-au' %}
+                                <!-- Use local images (skip S3 replacement) for this page as requested -->
+                                {{ pages.description|safe }}
+                           {% else %}
+                                {{ pages.description|replace_media_url|safe }}
+                           {% endif %}
                         </div>
 
                         {% if pages.slug == 'mission-vision-values-au' %}
@@ -29,7 +34,8 @@
                         <div class="mt-5 mb-5">
                             <h3 class="fw-bold mb-4">Related Links</h3>
                             <div class="list-group">
-                                <a href="{% url 'region-view' 'AUS' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <!-- Updated Link to use switch view (valid) instead of broken region-view -->
+                                <a href="{% url 'switch' 'AUS' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                     V2U Research Australia
                                     <i class="fas fa-chevron-right text-muted"></i>
                                 </a>
@@ -79,19 +85,19 @@
         font-family: 'Inter', sans-serif; /* or system-ui */
     }
 
-    /* Headings */
+    /* Headings with Reduced Spacing */
     .content-body h1, .content-body h2, .content-body h3, .content-body h4 {
         color: #2c3e50;
         font-weight: 700;
-        margin-top: 1rem;
-        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;   /* Reduced from 1rem */
+        margin-bottom: 0.25rem; /* Reduced from 0.5rem */
         line-height: 1.2;
     }
 
     .content-body h2 {
         font-size: 2rem;
         position: relative;
-        padding-bottom: 0.75rem;
+        padding-bottom: 0.25rem; /* Reduced from 0.75rem */
         border-bottom: 2px solid #eef2f7;
         color: #1a252f;
     }
@@ -120,8 +126,9 @@
         color: #7f8c8d;
     }
 
+    /* Paragraphs with Reduced Spacing */
     .content-body p {
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem; /* Reduced from 1rem */
         font-size: 1.125rem;
     }
 

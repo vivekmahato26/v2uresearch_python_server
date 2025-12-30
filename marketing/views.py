@@ -15,6 +15,8 @@ from django.core.paginator import Paginator
 from django.core.paginator import EmptyPage
 from django.core.paginator import PageNotAnInteger
 from datetime import datetime
+from home.forms import LeadForm
+
 
 import logging
 
@@ -97,6 +99,7 @@ class ProductDetailView(EssentialsMixin, DetailView):
             page_reports = paginator.page(paginator.num_pages)
 
         context["reports"] = page_reports
+        context['form'] = LeadForm(initial={'source': f"Product: {kwargs.get('object').name}"})
 
         return context
 
