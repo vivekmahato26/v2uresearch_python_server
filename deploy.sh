@@ -37,7 +37,6 @@ python manage.py collectstatic --noinput
 echo "=========================================="
 echo "Deployment tasks complete."
 echo "IMPORTANT: You may need to restart your application server."
-echo "Examples:"
 sudo systemctl restart gunicorn
 sudo systemctl restart uwsgi
 sudo supervisorctl restart all
