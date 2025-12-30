@@ -38,7 +38,7 @@ echo "=========================================="
 echo "Deployment tasks complete."
 echo "IMPORTANT: You may need to restart your application server."
 echo "Examples:"
-echo "  sudo systemctl restart gunicorn"
-echo "  sudo systemctl restart uwsgi"
-echo "  sudo supervisorctl restart all"
+sudo systemctl restart gunicorn
+sudo systemctl restart uwsgi
+sudo supervisorctl restart all
 echo "=========================================="

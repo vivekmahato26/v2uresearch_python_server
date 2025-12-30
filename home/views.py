@@ -34,17 +34,18 @@ def switchCountry(request, to):
     response = None
     to = to.upper()
     
-    # Production redirection logic
-    if not settings.DEBUG:
-        if to == 'AUS':
-            response = redirect(f'https://v2uresearch.com.au?set_region={to}')
-        # elif to == 'IND':
-        #     response = redirect(f'https://v2uresearch.in?set_region={to}')
-        else:
-            response = redirect(f'https://v2uresearch.com?set_region={to}')
+    # Redirect Logic (Updated to work regardless of DEBUG setting for server testing)
+    # if not settings.DEBUG:
+    if to == 'AUS':
+        response = redirect(f'https://v2uresearch.com.au?set_region={to}')
+    # elif to == 'IND':
+    #     response = redirect(f'https://v2uresearch.in?set_region={to}')
     else:
-        # LOCAL DEVELOPMENT: Redirect to home with set_region param
-        response = redirect(f'/?set_region={to}')
+        response = redirect(f'https://v2uresearch.com?set_region={to}')
+    
+    # else:
+    #     # LOCAL DEVELOPMENT
+    #     response = redirect(f'/?set_region={to}')
 
     # Cookie setting is now handled by RegionMiddleware based on set_region param
     
