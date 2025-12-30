@@ -41,6 +41,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('home.urls')),
     path('accounts/', include('allauth.urls')),
+    path('login', RedirectView.as_view(url='/accounts/login/', permanent=True), name='login_redirect'),
     path('lp/', include('lp.urls')),
     path('report/', include('reports.urls')),
     path('api/', include('apis.urls')),

@@ -65,3 +65,21 @@
     </div>
 </div>
 {% endblock %}
+
+{% block extracss %}
+<style>
+    .report-image {
+        width: 100%;
+        height: 200px; /* Force fixed height */
+        max-height: 200px; /* User requested max-height fix */
+        object-fit: cover; /* Maintain aspect ratio */
+    }
+    
+    .report-image-wrapper {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px 8px 0 0;
+        padding-top: 0 !important; /* Remove aspect ratio hack from custom_v2.css */
+    }
+</style>
+{% endblock %}

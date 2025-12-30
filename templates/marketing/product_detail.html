@@ -31,9 +31,10 @@
                         <p class="text-muted mb-0">per annum</p>
                     </div>
                     <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                         <a href="/contact-us" class="btn btn-primary btn-lg fw-bold">
-                            <i class="fas fa-shopping-cart me-2"></i>Subscribe Now
-                        </a>
+                        <div class="d-grid gap-2">
+                            <a href="{% url 'payment_page' %}" class="btn btn-primary btn-lg fw-bold">Subscribe Now</a>
+                            <a href="{% url 'contact_us' %}" class="btn btn-outline-secondary btn-lg fw-bold">Request Sample</a>
+                        </div>
                     </div>
                 </div>
             </div>

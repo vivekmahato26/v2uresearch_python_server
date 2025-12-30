@@ -23,8 +23,12 @@
                     {% if report.segment %}
                     <span class="me-3"><i class="fas fa-tag me-1"></i> {{ report.segment }}</span>
                     {% endif %}
-                    {% if report.region %}
-                    <span><i class="fas fa-globe me-1"></i> {{ report.region }}</span>
+                    {% if report.region.exists %}
+                    <span><i class="fas fa-globe me-1"></i> 
+                        {% for reg in report.region.all %}
+                            {{ reg.country_name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </span>
                     {% endif %}
                 </div>
             </div>
@@ -37,21 +41,7 @@
             </div>
 
             <!-- General Description Section -->
-            <div class="mt-4 mb-4">
-                 <!-- Left Description (Using report.left_description if available, or description) -->
-                 {% if report.left_description or report.description %}
-                 <div class="bg-card p-4 rounded-3 shadow-sm border border-light">
-                    <h4 class="fw-bold mb-3" style="color: #44475B;">Report Summary</h4>
-                    <div class="text-muted" style="line-height: 1.8;">
-                        {% if report.left_description %}
-                            {{ report.left_description|safe }}
-                        {% else %}
-                            {{ report.description|safe }}
-                        {% endif %}
-                    </div>
-                 </div>
-                 {% endif %}
-            </div>
+
 
             <!-- Disclaimer Section (Unified) -->
             <div class="mt-5 p-4 bg-surface rounded-3 border border-light">
@@ -61,9 +51,13 @@
                     </div>
                     <div>
                         <h6 class="fw-bold text-secondary mb-2">Disclaimer</h6>
-                        <p class="mb-0 text-muted small" style="line-height: 1.6;">
-                            V2U Research (Ontario Corporation Number (OCN/BIN) 1000897819) provides an honest investment opinion based on information sourced which can not be guaranteed to be accurate, and hence the company will not be liable for any losses as a result of decision based on this research report. Please, consult your investment advisor before investing as investing in equities comes with risk of financial losses.
-                        </p>
+                        <div class="mb-0 text-muted small" style="line-height: 1.6;">
+                            {% if disclaimer %}
+                                {{ disclaimer|safe }}
+                            {% else %}
+                                V2U Research (Ontario Corporation Number (OCN/BIN) 1000897819) provides an honest investment opinion based on information sourced which can not be guaranteed to be accurate, and hence the company will not be liable for any losses as a result of decision based on this research report. Please, consult your investment advisor before investing as investing in equities comes with risk of financial losses.
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,30 +72,27 @@
         <!-- Sidebar -->
         <div class="col-lg-3">
              <!-- Subscribe / Contact Sales Form (New) -->
+             <!-- TradingView News Widget (Top 5 News) -->
              <div class="mb-4">
-                <div class="bg-card p-4 rounded-3 shadow-sm border border-light">
-                    <h5 class="fw-bold mb-3 text-primary">Subscribe to Report</h5>
-                    <p class="text-muted small mb-3">Fill out the form below to enquire about this report.</p>
-                    
-                    <form action="{% url 'contact_us' %}" method="POST">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <input type="text" name="first_name" class="form-control form-control-sm" placeholder="First Name" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="text" name="last_name" class="form-control form-control-sm" placeholder="Last Name" required>
-                        </div>
-                        <div class="mb-3">
-                            <input type="email" name="email" class="form-control form-control-sm" placeholder="Email Address" required>
-                        </div>
-                         <div class="mb-3">
-                            <input type="tel" name="phone" class="form-control form-control-sm" placeholder="Phone (Optional)">
-                        </div>
-                        
-                        <input type="hidden" name="source" value="Report Subscription: {{ report.title }}">
-                        
-                        <button type="submit" class="btn btn-primary w-100 fw-bold">Get Full Access</button>
-                    </form>
+                <h5 class="fw-bold mb-3 text-primary">Market News</h5>
+                <div class="bg-card rounded-3 shadow-sm border border-light overflow-hidden">
+                    <!-- TradingView Widget BEGIN -->
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                        {
+                        "feedMode": "market",
+                        "market": "stock",
+                        "colorTheme": "light",
+                        "isTransparent": true,
+                        "displayMode": "regular",
+                        "width": "100%",
+                        "height": "500",
+                        "locale": "en"
+                        }
+                        </script>
+                    </div>
+                    <!-- TradingView Widget END -->
                 </div>
              </div>
 

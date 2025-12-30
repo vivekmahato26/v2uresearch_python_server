@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import HomeView, ContactUsView, PagesView, SuccessView, RegionView, switchCountry, SwitchView, AboutUsView
+from .views import HomeView, ContactUsView, PagesView, SuccessView, RegionView, switchCountry, SwitchView, AboutUsView, PaymentView
 from marketing.views import DashboardProductListView, ArticlesListView, ArticlesDetailView, LeadExportView
 from reports.views import ReportListView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('payment/', PaymentView.as_view(), name='payment_page'),
     path('about-us', AboutUsView.as_view(), name='about_us'),
     path('contact-us', ContactUsView.as_view(), name='contact_us'),
     path('successful', SuccessView.as_view(), name='success_page'),

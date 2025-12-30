@@ -59,6 +59,9 @@ class SwitchView(EssentialsMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
+class PaymentView(EssentialsMixin, TemplateView):
+    template_name = "home/payment.html"
+
 class AboutUsView(EssentialsMixin, TemplateView):
     template_name = "home/about_us.html"
 

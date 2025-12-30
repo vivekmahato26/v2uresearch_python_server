@@ -15,6 +15,7 @@ class Lead(models.Model):
     source =  models.CharField(max_length=100)
     email = models.CharField(max_length = 254)
     phone = models.CharField(max_length=100)
+    message = models.TextField(null=True, blank=True)
     user_agent = JSONField()
     # created_by = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     created_at = models.DateTimeField('Draft date', auto_now_add=True)

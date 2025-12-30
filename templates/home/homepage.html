@@ -48,12 +48,24 @@
             <h4 class="section-title">Latest Updates</h4>
         </div>
         <div class="col-12">
-            <div class="d-flex flex-wrap gap-3">
+            <div class="row">
                 {% for report in reports|slice:":6" %}
-                <a href="{{ report.get_absolute_url }}" class="feature-strip text-decoration-none">
-                    <img src="{{ report.feature_image_url.url }}" alt="{{ report.title }}">
-                    <span class="feature-strip-text">{{ report.title|truncatechars:40 }}</span>
-                </a>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <a href="{{ report.get_absolute_url }}" class="text-decoration-none h-100 d-block">
+                        <div class="groww-card">
+                            <img src="{{ report.feature_image_url.url }}" class="groww-card-img" alt="{{ report.title }}">
+                            <div class="groww-card-body">
+                                <h5 class="groww-card-title">{{ report.title }}</h5>
+                                <p class="groww-card-text">{{ report.short_description|truncatewords:15 }}</p>
+                                {% if report|has_access:request.user %}
+                                <button class="groww-card-btn">View Report</button>
+                                {% else %}
+                                <button class="groww-card-btn"><i class="fas fa-lock me-1"></i>Subscribe to Access</button>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                </div>
                 {% endfor %}
             </div>
         </div>

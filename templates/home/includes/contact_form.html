@@ -34,6 +34,14 @@
                 {% endif %}
             </div>
             
+            <div class="col-12">
+                <label for="id_message" class="form-label text-muted small fw-bold">Message / Inquiry</label>
+                {{ form.message }}
+                {% if form.message.errors %}
+                    <div class="text-danger small mt-1">{{ form.message.errors.0 }}</div>
+                {% endif %}
+            </div>
+            
             <!-- Hidden Source Field -->
             {% if form.source %}
                 {{ form.source }}
