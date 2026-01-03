@@ -7,3 +7,4 @@ V2UResearchApp/settings.py
 # Optional but recommended: Ignore compiled Python files
 __pycache__/
 *.py[cod]
+verify_s3.py
