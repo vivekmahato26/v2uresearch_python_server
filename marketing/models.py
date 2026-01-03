@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
 from users.models import Region
-from django.db.models import JSONField
+from django.db.models import JSONField # Updated for Django 5.0
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType

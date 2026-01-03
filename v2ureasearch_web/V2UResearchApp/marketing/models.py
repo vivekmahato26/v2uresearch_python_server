@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
 from users.models import Region
-from django_mysql.models import JSONField
+from django.db.models import JSONField
 
 # marketing app
 class Lead(models.Model):
