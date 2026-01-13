@@ -23,7 +23,7 @@
                                 <div class="col-sm-12 col-md-12 col-lg-12">
                                     <div class="product-text-page">{{ product.name }}</div>
                                     <div class="product-price-page">
-                                    {% if perms|index:forloop.counter0 %}
+                                    {% if product.user_has_access %}
                                         <a href="{{product.get_absolute_url}}" class="btn btn-primary w-100">View Reports</a> 
                                     {% else %}
                                         <a href="{{product.get_absolute_url}}" class="btn btn-primary w-100">Buy $ {{product.cost}}</a> 

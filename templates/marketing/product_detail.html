@@ -32,7 +32,13 @@
                     </div>
                     <div class="col-md-6 text-md-end mt-3 mt-md-0">
                         <div class="d-grid gap-2">
+                            {% if purchased %}
+                            <button class="btn btn-success btn-lg fw-bold" disabled>
+                                <i class="fas fa-check-circle me-2"></i>Subscribed
+                            </button>
+                            {% else %}
                             <a href="{% url 'payment_page' %}" class="btn btn-primary btn-lg fw-bold">Subscribe Now</a>
+                            {% endif %}
                             <a href="{% url 'contact_us' %}" class="btn btn-outline-secondary btn-lg fw-bold">Request Sample</a>
                         </div>
                     </div>

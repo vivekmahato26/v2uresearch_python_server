@@ -58,8 +58,14 @@ class ProductListView(EssentialsMixin, ListView):
         region = context['region']
         # context['region'] = region
         # context['region'] = region
-        context['products'] = Product.objects.filter(is_active=True, regions=region)
-        context["perms"] = list(map(lambda x: True if x.name in reports_perms else False, context['products']))
+        products = Product.objects.filter(is_active=True, regions=region)
+        
+        # Annotate products with access status
+        for product in products:
+            product.user_has_access = product.name in reports_perms
+            
+        context['products'] = products
+        # context["perms"] = list(map(lambda x: True if x.name in reports_perms else False, context['products']))
         context['reports'] = Report.objects.filter(region=region, published_date__lte=datetime.now())[:4]
         # context['featured_reports'] = Report.objects.filter(regions=region).order_by('-published_date')[:4]
         context["now"] = timezone.now()
@@ -135,9 +141,12 @@ class DashboardProductListView(EssentialsMixin, LoginRequiredMixin, ListView):
         
         # context['region'] = region
         # context['region'] = region
-        context['products'] = Product.objects.filter(regions=region, is_active=True)
+        products = Product.objects.filter(regions=region, is_active=True)
+        for product in products:
+            product.user_has_access = product.name in reports_perms
+        context['products'] = products
         logger.error(context['products'].values_list('id', 'name'))
-        context["perms"] = list(map(lambda x: True if x.name in reports_perms else False, context['products']))
+        # context["perms"] = list(map(lambda x: True if x.name in reports_perms else False, context['products']))
         context["reports"] = Report.objects.filter(product=kwargs.get('object'), region=region, published_date__lte=datetime.now())
         return context
 

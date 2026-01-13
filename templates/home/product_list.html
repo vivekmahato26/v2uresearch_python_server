@@ -77,9 +77,15 @@
                         <a href="{{ product.get_absolute_url }}" class="btn btn-primary w-100 mb-2 fw-bold">
                             View Details
                         </a>
+                        {% if product.user_has_access %}
+                        <button class="btn btn-success w-100 fw-bold" disabled>
+                            <i class="fas fa-check-circle me-2"></i>Subscribed
+                        </button>
+                        {% else %}
                         <a href="{% url 'payment_page' %}" class="btn btn-outline-custom w-100 fw-bold">
                             Subscribe Now
                         </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
