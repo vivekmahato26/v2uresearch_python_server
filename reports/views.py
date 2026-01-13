@@ -31,18 +31,17 @@ class ReportListView(EssentialsMixin, LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         """Get filtered and sorted queryset based on user permissions and filters"""
-        # Get user permissions
-        app_lbl = User._meta.app_label
-        model_name = User._meta.model_name
+        # Get user permissions - use 'users' app for custom permissions
         permissions = self.request.user.user_permissions.filter(
-            content_type__app_label=app_lbl, 
-            content_type__model=model_name
+            content_type__app_label='users', 
+            content_type__model='user'
         )
         
         # Extract product names from permissions
         accessible_product_names = []
         for permission in permissions:
-            if permission.codename.find("can_view_") == 0 and self.request.user.has_perm('users.' + permission.codename):
+            # Changed from can_view_ to can_ to match actual permission codenames
+            if permission.codename.startswith('can_') and self.request.user.has_perm('users.' + permission.codename):
                 accessible_product_names.append(permission.name.replace('Can View ', ''))
         
         # Get region from context (set by EssentialsMixin)
@@ -122,18 +121,17 @@ class ReportListView(EssentialsMixin, LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # Get user permissions for statistics
-        app_lbl = User._meta.app_label
-        model_name = User._meta.model_name
+        # Get user permissions for statistics - use 'users' app for custom permissions
         permissions = self.request.user.user_permissions.filter(
-            content_type__app_label=app_lbl, 
-            content_type__model=model_name
+            content_type__app_label='users', 
+            content_type__model='user'
         )
         
         # Extract accessible product names
         accessible_product_names = []
         for permission in permissions:
-            if permission.codename.find("can_view_") == 0 and self.request.user.has_perm('users.' + permission.codename):
+            # Changed from can_view_ to can_ to match actual permission codenames
+            if permission.codename.startswith('can_') and self.request.user.has_perm('users.' + permission.codename):
                 accessible_product_names.append(permission.name.replace('Can View ', ''))
         
         # Get region
@@ -244,9 +242,11 @@ class DailyReportListView(EssentialsMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            app_lbl = User._meta.app_label
-            model_name = User._meta.model_name
-            permissions = self.request.user.user_permissions.filter(content_type__app_label=app_lbl, content_type__model=model_name)
+            # Use 'users' app for custom permissions
+            permissions = self.request.user.user_permissions.filter(
+                content_type__app_label='users', 
+                content_type__model='user'
+            )
         else:
             permissions = []
             
@@ -255,7 +255,8 @@ class DailyReportListView(EssentialsMixin, ListView):
         
         if self.request.user.is_authenticated:
             for permission in permissions:
-                if permission.codename.find("can_view_")==0 and self.request.user.has_perm('users.'+permission.codename):
+                # Changed from can_view_ to can_ to match actual permission codenames
+                if permission.codename.startswith('can_') and self.request.user.has_perm('users.'+permission.codename):
                     reports.append(permission.name.replace('Can View ', ''))
         
         products = Product.objects.filter()

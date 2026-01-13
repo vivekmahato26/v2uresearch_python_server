@@ -22,10 +22,11 @@ def has_access(report, user):
 
     # Check permissions based on products
     # Note: permissions are created with app_label 'users' in some contexts, or content_type mapping
-    # Based on views.py logic, it checks 'users.can_view_...'
+    # The Product model creates permissions with codename 'can_{product_name}' (see marketing/models.py line 76)
     
     for prod in report.product.all():
-        perm_codename = f'can_view_{prod.name.lower().replace(" ", "_")}'
+        # Match the permission format created in Product.save(): can_{product_name}
+        perm_codename = f'can_{prod.name.lower().replace(" ", "_")}'
         if user.has_perm(f'users.{perm_codename}'):
             return True
             

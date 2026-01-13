@@ -17,14 +17,17 @@ class SectorDetailView(EssentialsMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        app_lbl = User._meta.app_label
-        model_name = User._meta.model_name
-        permissions = self.request.user.user_permissions.filter(content_type__app_label=app_lbl, content_type__model=model_name)
+        # Use 'users' app for custom permissions
+        permissions = self.request.user.user_permissions.filter(
+            content_type__app_label='users', 
+            content_type__model='user'
+        )
         reports = []
         # context["perm"] = permissions
         
         for permission in permissions:
-            if permission.codename.find("can_view_")==0 and self.request.user.has_perm('users.'+permission.codename):
+            # Changed from can_view_ to can_ to match actual permission codenames
+            if permission.codename.startswith('can_') and self.request.user.has_perm('users.'+permission.codename):
                 reports.append(permission.name.replace('Can View ', ''))
         context['perms'] = ','.join(reports)
         # region = Region.objects.get(is_default=1)
